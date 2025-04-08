@@ -1,3 +1,8 @@
+body {
+  background: rgb(23,0,0);
+  background: linear-gradient(0deg, rgba(23,0,0,1) 0%, rgba(255,255,255,1) 21%, rgba(255,255,255,1) 100%);
+}
+
 .navbar {
   background-color: #170000;
 }
@@ -15,8 +20,9 @@ ol li {
   padding: 20rem 0;
 
   background-image: url(../../images/vecteezy_wine-and-grapes-lying-on-a-table_22394752.jpg);
-  
-  filter: grayscale(100%);
+
+  /* filter: grayscale(100%); */
+  filter: brightness(65%);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -26,6 +32,21 @@ ol li {
   .about {
     padding: 15rem 0;
   }
+}
+
+.tipos h4 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.tipos p {
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.tipos i {
+  font-size: 1.1rem;
+  color: rgb(100, 100, 100);
 }
 
 .footer {

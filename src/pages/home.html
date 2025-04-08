@@ -24,7 +24,7 @@
   </head>
   <body>
     <header>
-      <nav class="navbar sticky-top navbar-expand-lg shadow-sm mx-auto">
+      <nav class="navbar sticky-top navbar-expand-lg shadow-sm text-lg-center">
         <div class="container-fluid mx-lg-5">
           <a class="navbar-brand" href="#">
             <h1>
@@ -87,16 +87,19 @@
         </div>
 
         <section class="intro">
-          <p class="fs-3 fw-bold text-break m-lg-5 text-center">
-            A degustação de vinhos é um processo sensorial que permite avaliar
-            as características da bebida, como cor, aroma, sabor e textura. Esse
-            processo pode ser realizado por apreciadores iniciantes ou
-            especialistas, como sommeliers, e segue algumas etapas essenciais
-            para uma experiência completa.
-          </p>
-          <div class="p-3 mx-lg-5 bg-dark-subtle">
-            <h3 class="text-center fs-md-5 fs-2 fw-bold">Etapas da Degustação de Vinhos</h3>
-            <ol>
+          <div class="p-3 mx-lg-5 bg-dark-subtle my-5">
+            <p class="fs-3 text-break m-lg-5 text-center fw-normal fst-italic">
+              A degustação de vinhos é um processo sensorial que permite avaliar
+              as características da bebida, como cor, aroma, sabor e textura.
+              Esse processo pode ser realizado por apreciadores iniciantes ou
+              especialistas, como sommeliers, e segue algumas etapas essenciais
+              para uma experiência completa.
+            </p>
+            <h3 class="text-center fs-md-5 fs-2 fw-bold my-3">
+              Etapas da Degustação de Vinhos
+            </h3>
+            <hr />
+            <ol class="d-flex flex-lg-row flex-sm-row gap-5 lh-base m-5"> <!-- aqui ta dando probelma na responsividade -->
               <li>
                 <strong>Análise Visual:</strong> A observação da cor do vinho
                 pode indicar sua idade e estrutura. Vinhos tintos jovens
@@ -131,32 +134,59 @@
           </div>
         </section>
 
-        <section class="tipos">
-          <h3>Tipos de Vinhos</h3>
+        <section class="tipos m-5 lh-base">
+          <h3 class="fs-2 fw-bold my-3">Tipos de Vinhos</h3>
+          <hr />
           <h4>Vinhos Tintos</h4>
           <p>
             Os vinhos tintos são elaborados a partir de uvas tintas, sendo
             fermentados com suas cascas, o que confere cor e taninos à bebida.
           </p>
-          <ul>
+          <ul class="lh-base">
             <li>
               Cabernet Sauvignon: Uma das uvas mais populares, produz vinhos
               encorpados, com aromas de frutas escuras, pimentão e notas de
               envelhecimento em madeira, como baunilha e tabaco.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Carnes vermelhas grelhadas, cordeiro e queijos
+                maturados.
+              </i>
+            </p>
             <li>
               Merlot: Apresenta taninos mais suaves e aromas de frutas
               vermelhas, tornando-se uma opção acessível para iniciantes.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Massas com molhos leves, carnes assadas e queijos
+                macios.
+              </i>
+            </p>
             <li>
               Malbec: Originária da França, mas famosa na Argentina, produz
               vinhos encorpados, com notas de ameixa, cacau e especiarias.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Carnes grelhadas, churrasco e empanadas
+                argentinas.
+              </i>
+            </p>
             <li>
               Pinot Noir: Conhecida por sua elegância, resulta em vinhos leves,
               com aromas de frutas vermelhas frescas e notas terrosas.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Carnes brancas, cogumelos e queijos suaves.
+              </i>
+            </p>
           </ul>
+
+          <hr />
+
           <h4>Vinhos Brancos</h4>
           <p>
             Os vinhos brancos são feitos predominantemente com uvas brancas, e
@@ -168,19 +198,43 @@
               Chardonnay: Extremamente versátil, pode resultar em vinhos leves e
               frescos ou encorpados, quando envelhecidos em barris de carvalho.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Frutos do mar, aves e massas com molhos cremosos.
+              </i>
+            </p>
             <li>
               Sauvignon Blanc: Possui alta acidez e aromas herbáceos, cítricos e
               tropicais, sendo refrescante e ideal para dias quentes.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Peixes grelhados, saladas e pratos leves.
+              </i>
+            </p>
             <li>
               Riesling: Destaca-se pelo seu equilíbrio entre acidez e doçura,
               podendo apresentar aromas florais e minerais.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Comida asiática, pratos apimentados e queijos de
+                mofo azul.
+              </i>
+            </p>
             <li>
               Gewürztraminer: Aromático e levemente adocicado, é conhecido por
               notas de lichia, rosas e especiarias.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Pratos indianos, tailandeses e queijos fortes.
+              </i>
+            </p>
           </ul>
+
+          <hr />
+
           <h4>Vinhos Rosés</h4>
           <p>
             Os vinhos rosés são elaborados com uvas tintas, mas com um tempo de
@@ -192,15 +246,34 @@
               Provence Rosé: Originário da França, apresenta notas delicadas de
               morango, framboesa e flores.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Saladas, frutos do mar e aperitivos.
+              </i>
+            </p>
             <li>
               Zinfandel Rosé: Popular nos EUA, tende a ser mais adocicado, com
               notas de frutas vermelhas maduras.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Comida mexicana, churrasco e pratos picantes.
+              </i>
+            </p>
             <li>
               Tempranillo Rosé: Possui corpo leve a médio, com acidez
               equilibrada e aromas de frutas tropicais.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Tapas espanholas, queijos frescos e carnes
+                brancas.
+              </i>
+            </p>
           </ul>
+
+          <hr />
+
           <h4>Vinhos Espumantes</h4>
           <p>
             Os vinhos espumantes possuem bolhas resultantes da fermentação
@@ -213,15 +286,31 @@
               métodos tradicionais e uvas como Chardonnay, Pinot Noir e Pinot
               Meunier.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Ostras, caviar e queijos macios.
+              </i>
+            </p>
             <li>
               Prosecco: Originário da Itália, é mais leve e frutado, com notas
               de pera e flores brancas.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Petiscos, frutos do mar e sobremesas leves.
+              </i>
+            </p>
             <li>
               Cava: Espumante espanhol elaborado pelo método tradicional, com
               aromas cítricos e de amêndoas.
             </li>
+            <p>
+              <i class="mx-2"> Harmonização: Tapas, jamón e frutos do mar. </i>
+            </p>
           </ul>
+
+          <hr />
+
           <h4>Vinhos Fortificados</h4>
           <p>
             Os vinhos fortificados possuem adição de aguardente vínica,
@@ -232,15 +321,34 @@
               Vinho do Porto: Produzido em Portugal, apresenta variações como
               Tawny (envelhecido em madeira) e Ruby (mais jovem e frutado).
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Queijos azuis, chocolates e sobremesas intensas.
+              </i>
+            </p>
             <li>
               Jerez (Sherry): Espanhol, pode ser seco ou doce, com notas de
               nozes e cara
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Amêndoas, presunto ibérico e frutos secos.
+              </i>
+            </p>
             <li>
               Madeira: Produzido na Ilha da Madeira, é famoso por sua acidez
               elevada e notas de frutos secos.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Doces caramelizados, queijos curados e carnes
+                defumadas.
+              </i>
+            </p>
           </ul>
+
+          <hr />
+
           <h4>Vinhos de Sobremesa</h4>
           <p>
             Os vinhos de sobremesa possuem maior concentração de açúcar, podendo
@@ -251,17 +359,40 @@
               Sauternes: Vinho doce francês produzido a partir de uvas afetadas
               pela "podridão nobre", conferindo notas de mel e damasco.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Foie gras, queijos azuis e sobremesas frutadas.
+              </i>
+            </p>
             <li>
               Ice Wine: Produzido em regiões frias, como Canadá e Alemanha, com
               uvas congeladas na videira, resultando em um vinho intensamente
               doce.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Tortas de frutas, cheesecake e queijos fortes.
+              </i>
+            </p>
             <li>
               Moscato d'Asti: Italiano, levemente frisante e adocicado, com
               aromas de pêssego e flor de laranjeira.
             </li>
+            <p>
+              <i class="mx-2">
+                Harmonização: Frutas frescas, bolos leves e sobremesas cítricas.
+              </i>
+            </p>
           </ul>
+          <hr />
+          <p class="fst-italic">A degustação de vinhos é uma experiência rica e subjetiva. Experimentar diferentes estilos e harmonizações com alimentos pode ampliar o conhecimento e o prazer em apreciar essa bebida milenar.
+          </p>
         </section>
+
+        <div class="mx-auto text-break p-4 col-lg-4 mb-5 rounded bg-opacity-75 fs-3 text-center text-light">
+          <p>Quer enviar uma critica, uma sugestão ou um alô?</p>
+          <p>Entre em <a href="" class="link-body-emphasis">contato</a> e nos mande uma mensagem!</p>
+          </div>
       </article>
     </main>
 
@@ -269,9 +400,17 @@
       <div
         class="footer text-center navbar-expand-lg shadow-sm container-fluid"
       >
-        <address>
+        <p class="text-center fs-5 m-lg-5 text-light p-3 mx-lg-5">
+          <q class="fs-5 fw-bold text-break m-lg-5"
+            >O bom vinho é óleo puro para a lâmpada do intelecto: dá alma, força
+            e impulso até o firmamento</q
+          >
+          <br />
+          - Gottfried Burger
+        </p>
+        <p>
           <p class="text-light">
-            Escrito por
+            Desenvolvido por
             <a
               href=""
               class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
@@ -284,11 +423,12 @@
               >Marcos Moreira</a
             >.
           </p>
+
           <p class="text-light text-opacity-50">
             &copy; 2025, Brenda Gaudêncio and Marcos Moreira. All Rights
             Reserved.
           </p>
-        </address>
+        </p>
       </div>
     </footer>
     <script
