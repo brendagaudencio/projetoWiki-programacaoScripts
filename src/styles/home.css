@@ -1,0 +1,94 @@
+/* body {
+  background: rgb(23,0,0);
+  background: linear-gradient(0deg, rgb(83, 3, 3) 0%, rgba(255,255,255,1) 21%, rgba(255,255,255,1) 100%);
+} */
+
+.navbar {
+  background-color: #170000;
+}
+
+ul li {
+  font-weight: normal;
+  font-size: 1.2rem;
+}
+
+ol li {
+  font-size: 1.2rem;
+}
+
+.curiosidades li {
+  font-weight: normal;
+  font-size: 1.2rem;
+  width: 90%;
+}
+
+.about {
+  padding: 20rem 0;
+  margin-top: 5.1rem;
+
+  background-image: url(../../images/foto-fundo-principal.jpg);
+
+  /* filter: grayscale(100%); */
+  filter: brightness(65%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 15rem 0;
+    margin-top: 4rem;
+  }
+
+  .curiosidades li {
+    font-weight: normal;
+    font-size: 1.2rem;
+    width: 100%;
+  }
+  .grid-columns {
+    grid-template-columns: 1fr; 
+  }
+
+  .tipos {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .tipos h3 {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  .curiosidades {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+.grid-columns {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr; 
+}
+
+
+.tipos h4 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.tipos p {
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.tipos i {
+  font-size: 1.1rem;
+  color: rgb(100, 100, 100);
+}
+
+.footer {
+  background-color: #170000;
+  padding: 5rem 0;
+}
