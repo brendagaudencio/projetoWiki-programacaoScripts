@@ -20,7 +20,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/home.css" />
-    <title>Projeto 1</title>
+    <title>OuiWine</title>
   </head>
   <body>
     <header>
@@ -66,16 +66,10 @@
               
                 
             </ul>
-            <div>
-              <a
-              class="nav-link active"
-              aria-current="page"
-              href="../pages/login.html"
-              >
-              <button type="button" class="btn btn-danger">Login
-              </button>
-            </a>
-            </div>
+            <div class="text-center">
+              
+          </div>
+          
           </div>
         </div>
       </nav>
@@ -88,7 +82,7 @@
           <div
             class="mx-5 text-break p-2 bg-dark col-lg-4 mb-5 rounded bg-opacity-75"
           >
-            <h2 class="fs-1 text-center">Bem-vindo ao WiWine!</h2>
+            <h2 class="fs-1 text-center">Bem-vindo ao OuiWine!</h2>
             <p class="fs-4 text-center">
               Criado por amigos para te ajudar a entender de forma sucinta como degustar, combinar e apreciar vinhos. Aqui você vai ler de uma forma resumida como entrar nesse mundo tão interessante de degustação de obras primas do paladar. 
             </p>
@@ -108,7 +102,7 @@
               Etapas da Degustação de Vinhos
             </h3>
             <hr />
-            <ol class="d-grid gap-4 lh-base" style="grid-template-columns: 1fr 1fr;" > <!-- aqui ta dando probelma na responsividade -->
+            <ol class="d-grid gap-4 lh-base grid-columns" style="grid-template-columns: 1fr 1fr;" > <!-- aqui ta dando probelma na responsividade -->
               <li>
                 <strong>Análise Visual:</strong> A observação da cor do vinho
                 pode indicar sua idade e estrutura. Vinhos tintos jovens
@@ -143,10 +137,12 @@
           </div>
         </section>
 
-        <section class="tipos m-5 lh-base">
-          <h3 class="fs-2 fw-bold my-3">Tipos de Vinhos</h3>
+        <section class="tipos lh-base mx-lg-5 mx-sm-3">
+          <h3 class="fs-lg-2 fw-bold my-3">Tipos de Vinhos</h3>
           <hr />
-          <h4>Vinhos Tintos</h4>
+          <div class="row">
+            <div class="col-md-8 col-xs-12">
+              <h4>Vinhos Tintos</h4>
           <p>
             Os vinhos tintos são elaborados a partir de uvas tintas, sendo
             fermentados com suas cascas, o que confere cor e taninos à bebida.
@@ -193,10 +189,20 @@
               </i>
             </p>
           </ul>
+            </div>
+            <div class="col-md-4 d-none d-lg-block">
+              <img src="../../images/garrafa-vinho.jpg" alt="Foto de 4 taças de vinho em um brinde" class="img-thumbnail">
+            </div>
+          </div>
 
           <hr />
 
-          <h4>Vinhos Brancos</h4>
+          <div class="row">
+            <div class="col-md-4 d-none d-lg-block">
+              <img src="../../images/garrafa-vinho.jpg" class="img-thumbnail" alt="Foto de 4 taças de vinho em um brinde">
+            </div>
+            <div class="col-md-8 col-xs-12">
+              <h4>Vinhos Brancos</h4>
           <p>
             Os vinhos brancos são feitos predominantemente com uvas brancas, e
             sua fermentação ocorre sem contato com as cascas, conferindo frescor
@@ -241,10 +247,15 @@
               </i>
             </p>
           </ul>
+            </div>
+            
+          </div>
 
           <hr />
 
-          <h4>Vinhos Rosés</h4>
+          <div class="row">
+            <div class="col-md-8 col-xs-12 ">
+              <h4>Vinhos Rosés</h4>
           <p>
             Os vinhos rosés são elaborados com uvas tintas, mas com um tempo de
             maceração reduzido, resultando em uma bebida de coloração rosada e
@@ -280,10 +291,21 @@
               </i>
             </p>
           </ul>
+            </div>
+
+            <div class="col-md-4 d-none d-lg-block">
+              <img src="../../images/garrafa-vinho.jpg" class="img-thumbnail" alt="Foto de 4 taças de vinho em um brinde">
+            </div>
+          </div>
 
           <hr />
 
-          <h4>Vinhos Espumantes</h4>
+          <div class="row">
+            <div class="col-md-4 d-none d-lg-block">
+              <img src="../../images/garrafa-vinho.jpg" class="img-thumbnail" alt="Foto de 4 taças de vinho em um brinde">
+            </div>
+            <div class="col-md-8 col-xs-12">
+              <h4>Vinhos Espumantes</h4>
           <p>
             Os vinhos espumantes possuem bolhas resultantes da fermentação
             natural do gás carbônico, sendo amplamente utilizados em
@@ -317,10 +339,15 @@
               <i class="mx-2"> Harmonização: Tapas, jamón e frutos do mar. </i>
             </p>
           </ul>
+            </div>
+          
+          </div>
 
           <hr />
 
-          <h4>Vinhos Fortificados</h4>
+          <div class="row">
+            <div class="col-md-8 col-xs-12">
+              <h4>Vinhos Fortificados</h4>
           <p>
             Os vinhos fortificados possuem adição de aguardente vínica,
             aumentando o teor alcoólico e a longevidade.
@@ -355,10 +382,20 @@
               </i>
             </p>
           </ul>
+            </div>
+            <div class="col-md-4  d-none d-lg-block">
+              <img src="../../images/garrafa-vinho.jpg" class="img-thumbnail" alt="Foto de 4 taças de vinho em um brinde">
+            </div>
+          </div>
 
           <hr />
 
-          <h4>Vinhos de Sobremesa</h4>
+          <div class="row">
+            <div class="col-md-4 d-none d-lg-block">
+              <img src="../../images/garrafa-vinho.jpg" class="img-thumbnail" alt="Foto de 4 taças de vinho em um brinde">
+            </div>
+            <div class="col-md-8 col-xs-12"> 
+              <h4>Vinhos de Sobremesa</h4>
           <p>
             Os vinhos de sobremesa possuem maior concentração de açúcar, podendo
             ser naturais ou obtidos por técnicas específicas.
@@ -393,11 +430,14 @@
               </i>
             </p>
           </ul>
+            </div>
+            
+          </div>
           <hr />
           
         </section>
 
-        <section class="curiosidades tipos m-5 lh-base">
+        <section class="curiosidades tipos m-lg-5 lh-base">
           <h3 class="fs-2 fw-bold my-3">Curiosidades</h3>
           <ol class="lh-lg lh-sm-1">
             <li>
@@ -423,7 +463,7 @@
 
         <div class="mx-auto text-break col-lg-4 my-5 fs-4 text-center text-dark">
           <p>Quer fazer parte desse projeto conosco?</p>
-          <p>Entre em <a href="../pages/colaborar.html" class="link-body-emphasis">colaborar</a> e se cadastre!</p>
+          <p>Entre em <a href="../pages/colaborar.html" class="link-body-emphasis" target="_blank">colaborar</a> e se cadastre!</p>
           </div>
       </article>
     </main>
@@ -457,7 +497,7 @@
             Quer enviar uma crítica, uma sugestão ou um alô?
             </p>
             <div class="text-light fs-5">
-              <i class="bi bi-envelope-open"> wiwine@contato.com</i>
+              <i class="bi bi-envelope-open"> ouiwine@contato.com</i>
             </div>
           </div>
       
@@ -493,5 +533,6 @@
       integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu"
       crossorigin="anonymous"
     ></script>
+    <script src="../scripts/home.js"></script>
   </body>
 </html>
