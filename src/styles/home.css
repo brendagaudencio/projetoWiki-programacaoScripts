@@ -1,7 +1,7 @@
-body {
+/* body {
   background: rgb(23,0,0);
-  background: linear-gradient(0deg, rgba(23,0,0,1) 0%, rgba(255,255,255,1) 21%, rgba(255,255,255,1) 100%);
-}
+  background: linear-gradient(0deg, rgb(83, 3, 3) 0%, rgba(255,255,255,1) 21%, rgba(255,255,255,1) 100%);
+} */
 
 .navbar {
   background-color: #170000;
@@ -16,8 +16,16 @@ ol li {
   font-size: 1.2rem;
 }
 
+.curiosidades li {
+  font-weight: normal;
+  font-size: 1.2rem;
+  width: 90%;
+}
+
+
 .about {
   padding: 20rem 0;
+  margin-top: 5.1rem;
 
   background-image: url(../../images/vecteezy_wine-and-grapes-lying-on-a-table_22394752.jpg);
 
@@ -31,6 +39,13 @@ ol li {
 @media (max-width: 768px) {
   .about {
     padding: 15rem 0;
+    margin-top: 4rem;
+  }
+
+  .curiosidades li {
+    font-weight: normal;
+    font-size: 1.2rem;
+    width: 100%;
   }
 }
 

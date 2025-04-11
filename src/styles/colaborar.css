@@ -1,10 +1,9 @@
 .navbar {
-    background-color: #170000;
-  }
-  
+  background-color: #170000;
+}
 
-.login {
-    margin: 10rem 0;
+.form-colaborar {
+  margin-top: 7rem;
 }
 
 .footer {
