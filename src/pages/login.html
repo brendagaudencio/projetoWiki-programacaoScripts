@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles/login.css" />
+    <title>OuiWine</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar fixed-top navbar-expand-lg shadow-sm text-lg-center">
+        <div class="container-fluid mx-lg-5">
+          <a class="navbar-brand" href="../pages/home.html">
+            <div>
+              <h1 class="text-light d-flex align-items-center">
+                <img
+                  src="../../images/torre-eiffel.png"
+                  alt=""
+                  style="width: 3rem; height: 3rem"
+                />
+                OuiWine
+              </h1>
+              
+            </div>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <article>
+        <div class="login">
+          <h1 class="text-center text-dark">Login</h1>
+          <form
+          id="login-form"
+            action=""
+            class="mx-auto text-break p-5 bg-dark-subtle col-lg-4 mb-5 rounded"
+          >
+            <label for="exampleFormControlInput1" class="form-label"
+              >Usuário</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="inputUsuario"
+              placeholder="Ex: cocochanel"
+              aria-describedby="Campo para inserir usuário para login"
+              required
+            />
+            <label for="inputSenha" class="form-label">Senha</label>
+            <input
+              type="password"
+              id="inputSenha"
+              class="form-control"
+              aria-describedby="Campo para inserir senha"
+              placeholder="Ex: *********"
+              required
+            />
+            <button type="submit" class="btn btn-danger text-center mt-3 container-fluid">
+              Entrar
+            </button>
+            <div id="login-message-sucess" class="my-3 bg-success text-white"></div>
+          </form>
+
+          <a href="../pages/home.html" class="link-danger text-center fs-5">
+            <p>Voltar para Home</p>
+        </a>
+        </div>
+
+       
+      </article>
+    </main>
+
+    <footer class="footer text-center navbar-expand-lg container-fluid">
+        <p class="text-center fs-5 mx-lg-5 text-light p-3">
+          <q class="fs-5 fw-bold text-break m-lg-5"
+            >O bom vinho é óleo puro para a lâmpada do intelecto: dá alma, força
+            e impulso até o firmamento</q
+          >
+          <br />
+          - Gottfried Burger
+        </p>
+
+        <hr class="text-danger">
+      
+        <div>
+          <p class="text-light fs-5">
+          Nos siga nas redes sociais!
+          </p>
+          <div class="text-light">
+            <i class="bi bi-instagram"> <a href=""></a></i>
+            <i class="bi bi-facebook"> <a href=""></a></i>
+          </div>
+      
+          <p class="text-light fs-5 mx-5">
+          Quer enviar uma crítica, uma sugestão ou um alô?
+          </p>
+          <div class="text-light fs-5">
+            <i class="bi bi-envelope-open"> ouiwine@contato.com</i>
+          </div>
+        </div>
+    
+      <hr class="text-danger">
+
+      <adress class="mx-3">
+        <p class="text-light">
+          Desenvolvido por
+          <a
+            href=""
+            class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            >Brenda Gaudêncio</a
+          >
+          e
+          <a
+            href=""
+            class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            >Marcos Moreira</a
+          >.
+        </adress>
+
+        <p class="text-light text-opacity-50 mx-4">
+          &copy; 2025, Brenda Gaudêncio and Marcos Moreira. All Rights
+          Reserved.
+        </p>
+      </p>
+    
+  </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu"
+        crossorigin="anonymous"
+        src="">
+    </script>
+    <script src="../scripts/login.js"></script>
+  </body>
+</html>
