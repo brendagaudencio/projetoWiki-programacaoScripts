@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "type": "module",
+  "name": "projetowiki-programacaoscripts",
+  "version": "1.0.0",
+  "description": "Projeto desenvolvido para a matéria Programção de Scripts do curso Análise e Desenvolvimento de Sistemas da Fatec Mogi Mirim \"Arthur de Azevedo\". A ideia principal desse projeto é ser uma Wiki que fala sobre degustação de vinhos e os tipos de vinhos de uma forma simples e sucinta para sanar duvídas de quem não sabe por onde começar a entender esse tópico. \r Desenvolvido com o objetivo de avaliação de conhecimentos adquiridos durante a matéria que constituem duas iterações principais sendo a primeira usando HTML, CSS e JavaScript aliado ao Bootstap para Frontend com páginas estáticas e a segunda iteração usando NodeJS com ferramenta para Backend.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brendagaudencio/projetoWiki-programacaoScripts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brendagaudencio/projetoWiki-programacaoScripts/issues"
+  },
+  "homepage": "https://github.com/brendagaudencio/projetoWiki-programacaoScripts#readme"
+}
