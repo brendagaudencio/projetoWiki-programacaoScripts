@@ -1,0 +1,12 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./database.sqlite",
+    "logging": console.log
+  },
+  "production": {
+    "dialect": "sqlite", 
+    "storage": "./database.sqlite",
+    "logging": false
+  }
+}
