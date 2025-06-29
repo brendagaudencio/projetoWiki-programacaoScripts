@@ -1,22 +1,43 @@
 {
-  "dependencies": {
-    "express": "^5.1.0"
-  },
-  "type": "module",
   "name": "projetowiki-programacaoscripts",
-  "version": "1.0.0",
-  "description": "Projeto desenvolvido para a matéria Programção de Scripts do curso Análise e Desenvolvimento de Sistemas da Fatec Mogi Mirim \"Arthur de Azevedo\". A ideia principal desse projeto é ser uma Wiki que fala sobre degustação de vinhos e os tipos de vinhos de uma forma simples e sucinta para sanar duvídas de quem não sabe por onde começar a entender esse tópico. \r Desenvolvido com o objetivo de avaliação de conhecimentos adquiridos durante a matéria que constituem duas iterações principais sendo a primeira usando HTML, CSS e JavaScript aliado ao Bootstap para Frontend com páginas estáticas e a segunda iteração usando NodeJS com ferramenta para Backend.",
-  "main": "index.js",
-  "devDependencies": {},
+  "version": "2.0.0",
+  "description": "Wiki sobre degustação de vinhos - Versão Fullstack para disciplina Programação de Scripts",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "seed": "npx sequelize-cli db:seed:all",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["vinhos", "degustacao", "wiki", "fatec", "programacao-scripts"],
+  "authors": [
+    "Brenda Gaudêncio <brendagaudencio@fatec.sp.gov.br>",
+    "Marcos Moreira <marcos.moreira@fatec.sp.gov.br>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9",
+    "sequelize": "^6.35.2",
+    "sqlite3": "^5.1.6",
+    "express-session": "^1.17.3",
+    "bcryptjs": "^2.4.3",
+    "express-validator": "^7.0.1",
+    "method-override": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "sequelize-cli": "^6.6.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brendagaudencio/projetoWiki-programacaoScripts.git"
+    "url": "https://github.com/brendagaudencio/projetoWiki-programacaoScripts"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/brendagaudencio/projetoWiki-programacaoScripts/issues"
   },
