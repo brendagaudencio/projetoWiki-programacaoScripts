@@ -4,72 +4,276 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    <!-- Tema OuiWine -->
-    <style>
-        .navbar { background-color: #170000 !important; }
-        .footer { background-color: #170000; }
-        .hero-section {
-            background: linear-gradient(rgba(23, 0, 0, 0.7), rgba(23, 0, 0, 0.7)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23440000" width="1200" height="800"/></svg>');
-            background-size: cover;
-            min-height: 60vh;
-            color: white;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/">
-                <i class="bi bi-cup-straw me-2"></i>
-                OuiWine
-            </a>
-            
-            <div class="navbar-nav ms-auto">
-                <a class="btn btn-danger btn-sm" href="/login">Login</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-section d-flex align-items-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="display-4 fw-bold mb-4">
-                        <%= pageTitle %>
-                    </h1>
-                    <p class="lead mb-4">
-                        Backend Express + EJS funcionando!
+    <%- include('partials/navbar') %>
+    
+    <main>
+        <article>
+            <!-- Hero Section - Bem-vindo ao OuiWine -->
+            <div class="about bg-dark-subtle text-light">
+                <div class="mx-5 text-break p-2 bg-dark col-lg-4 mb-5 rounded bg-opacity-75">
+                    <h2 class="fs-1 text-center">Bem-vindo ao OuiWine!</h2>
+                    <p class="fs-4 text-center">
+                        Criado por amigos para te ajudar a entender de forma sucinta como degustar, combinar e apreciar vinhos. 
+                        Aqui você vai ler de uma forma resumida como entrar nesse mundo tão interessante de degustação de obras primas do paladar.
                     </p>
-                    <div class="alert alert-success" role="alert">
-                        <h4 class="alert-heading">🎉 Sucesso!</h4>
-                        <p>
-                            Aplicação Fullstack <strong>funcionando</strong>! 
-                            Página funcionado dinamicamente.
-                        </p>
-                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer text-center py-4 text-light">
-        <div class="container">
-            <p class="mb-0">
-                🍷 OuiWine - Versão 2.0 Fullstack
-            </p>
-        </div>
-    </footer>
+            <!-- Introdução - Etapas da Degustação -->
+            <section class="intro">
+                <div class="p-3 mx-lg-5 bg-dark-subtle my-5">
+                    <p class="fs-3 text-break m-lg-5 text-center fw-normal fst-italic">
+                        A degustação de vinhos é um processo sensorial que permite avaliar as características da bebida, 
+                        como cor, aroma, sabor e textura. Esse processo pode ser realizado por apreciadores iniciantes ou 
+                        especialistas, como sommeliers, e segue algumas etapas essenciais para uma experiência completa.
+                    </p>
+                    <h3 class="text-center fs-md-5 fs-2 fw-bold my-3">Etapas da Degustação de Vinhos</h3>
+                    <hr />
+                    <ol class="d-grid gap-4 lh-base grid-columns" style="grid-template-columns: 1fr 1fr;">
+                        <li>
+                            <strong>Análise Visual:</strong> A observação da cor do vinho pode indicar sua idade e estrutura. 
+                            Vinhos tintos jovens costumam ter coloração mais vibrante, enquanto os envelhecidos podem apresentar 
+                            tons mais acastanhados. Nos vinhos brancos, a cor varia de amarelo pálido a dourado intenso, 
+                            dependendo do tempo de envelhecimento e do tipo de uva utilizada.
+                        </li>
+                        <li>
+                            <strong>Análise Olfativa:</strong> O aroma do vinho é essencial para a experiência de degustação. 
+                            Os aromas primários provêm das uvas e variam conforme a casta utilizada. Os aromas secundários 
+                            surgem do processo de fermentação, enquanto os terciários se desenvolvem com o envelhecimento 
+                            em barris de madeira ou na garrafa.
+                        </li>
+                        <li>
+                            <strong>Análise Gustativa:</strong> Ao provar o vinho, avalia-se o equilíbrio entre doçura, acidez, 
+                            taninos e teor alcoólico. A persistência do sabor na boca é chamada de "retrogosto" e indica a 
+                            qualidade do vinho. Vinhos bem equilibrados tendem a proporcionar uma experiência mais harmoniosa.
+                        </li>
+                        <li>
+                            <strong>Sensibilidade Tátil:</strong> A textura do vinho, conhecida como "corpo", pode ser leve, 
+                            média ou encorpada, dependendo da concentração dos compostos presentes na bebida. Vinhos encorpados 
+                            possuem maior viscosidade e tendem a deixar uma sensação mais intensa na boca.
+                        </li>
+                    </ol>
+                </div>
+            </section>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"></script>
+            <!-- Tipos de Vinhos -->
+            <section class="tipos lh-base mx-lg-5 mx-sm-3">
+                <h3 class="fs-lg-2 fw-bold my-3">Tipos de Vinhos</h3>
+                <hr />
+                
+                <!-- Vinhos Tintos -->
+                <div class="row">
+                    <div class="col-md-8 col-xs-12">
+                        <h4>Vinhos Tintos</h4>
+                        <p>Os vinhos tintos são elaborados a partir de uvas tintas, sendo fermentados com suas cascas, o que confere cor e taninos à bebida.</p>
+                        <ul class="lh-base">
+                            <li>
+                                <strong>Cabernet Sauvignon:</strong> Uma das uvas mais populares, produz vinhos encorpados, com aromas de frutas escuras, pimentão e notas de envelhecimento em madeira, como baunilha e tabaco.
+                                <p><i class="mx-2">Harmonização: Carnes vermelhas grelhadas, cordeiro e queijos maturados.</i></p>
+                            </li>
+                            <li>
+                                <strong>Merlot:</strong> Apresenta taninos mais suaves e aromas de frutas vermelhas, tornando-se uma opção acessível para iniciantes.
+                                <p><i class="mx-2">Harmonização: Massas com molhos leves, carnes assadas e queijos macios.</i></p>
+                            </li>
+                            <li>
+                                <strong>Malbec:</strong> Originária da França, mas famosa na Argentina, produz vinhos encorpados, com notas de ameixa, cacau e especiarias.
+                                <p><i class="mx-2">Harmonização: Carnes grelhadas, churrasco e empanadas argentinas.</i></p>
+                            </li>
+                            <li>
+                                <strong>Pinot Noir:</strong> Conhecida por sua elegância, resulta em vinhos leves, com aromas de frutas vermelhas frescas e notas terrosas.
+                                <p><i class="mx-2">Harmonização: Carnes brancas, cogumelos e queijos suaves.</i></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 d-none d-lg-block">
+                        <img src="/images/garrafa-vinho.jpg" alt="Garrafa de vinho" class="img-thumbnail">
+                    </div>
+                </div>
+
+                <hr />
+
+                <!-- Vinhos Brancos -->
+                <div class="row">
+                    <div class="col-md-4 d-none d-lg-block">
+                        <img src="/images/garrafa-vinho.jpg" class="img-thumbnail" alt="Garrafa de vinho">
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <h4>Vinhos Brancos</h4>
+                        <p>Os vinhos brancos são feitos predominantemente com uvas brancas, e sua fermentação ocorre sem contato com as cascas, conferindo frescor e leveza.</p>
+                        <ul>
+                            <li>
+                                <strong>Chardonnay:</strong> Extremamente versátil, pode resultar em vinhos leves e frescos ou encorpados, quando envelhecidos em barris de carvalho.
+                                <p><i class="mx-2">Harmonização: Frutos do mar, aves e massas com molhos cremosos.</i></p>
+                            </li>
+                            <li>
+                                <strong>Sauvignon Blanc:</strong> Possui alta acidez e aromas herbáceos, cítricos e tropicais, sendo refrescante e ideal para dias quentes.
+                                <p><i class="mx-2">Harmonização: Peixes grelhados, saladas e pratos leves.</i></p>
+                            </li>
+                            <li>
+                                <strong>Riesling:</strong> Destaca-se pelo seu equilíbrio entre acidez e doçura, podendo apresentar aromas florais e minerais.
+                                <p><i class="mx-2">Harmonização: Comida asiática, pratos apimentados e queijos de mofo azul.</i></p>
+                            </li>
+                            <li>
+                                <strong>Gewürztraminer:</strong> Aromático e levemente adocicado, é conhecido por notas de lichia, rosas e especiarias.
+                                <p><i class="mx-2">Harmonização: Pratos indianos, tailandeses e queijos fortes.</i></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr />
+
+                <!-- Vinhos Rosés -->
+                <div class="row">
+                    <div class="col-md-8 col-xs-12">
+                        <h4>Vinhos Rosés</h4>
+                        <p>Os vinhos rosés são elaborados com uvas tintas, mas com um tempo de maceração reduzido, resultando em uma bebida de coloração rosada e sabores frutados.</p>
+                        <ul>
+                            <li>
+                                <strong>Provence Rosé:</strong> Originário da França, apresenta notas delicadas de morango, framboesa e flores.
+                                <p><i class="mx-2">Harmonização: Saladas, frutos do mar e aperitivos.</i></p>
+                            </li>
+                            <li>
+                                <strong>Zinfandel Rosé:</strong> Popular nos EUA, tende a ser mais adocicado, com notas de frutas vermelhas maduras.
+                                <p><i class="mx-2">Harmonização: Comida mexicana, churrasco e pratos picantes.</i></p>
+                            </li>
+                            <li>
+                                <strong>Tempranillo Rosé:</strong> Possui corpo leve a médio, com acidez equilibrada e aromas de frutas tropicais.
+                                <p><i class="mx-2">Harmonização: Tapas espanholas, queijos frescos e carnes brancas.</i></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 d-none d-lg-block">
+                        <img src="/images/garrafa-vinho.jpg" class="img-thumbnail" alt="Garrafa de vinho">
+                    </div>
+                </div>
+
+                <hr />
+
+                <!-- Vinhos Espumantes -->
+                <div class="row">
+                    <div class="col-md-4 d-none d-lg-block">
+                        <img src="/images/garrafa-vinho.jpg" class="img-thumbnail" alt="Garrafa de vinho">
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <h4>Vinhos Espumantes</h4>
+                        <p>Os vinhos espumantes possuem bolhas resultantes da fermentação natural do gás carbônico, sendo amplamente utilizados em celebrações.</p>
+                        <ul>
+                            <li>
+                                <strong>Champagne:</strong> Produzido na região de Champagne, França, utiliza métodos tradicionais e uvas como Chardonnay, Pinot Noir e Pinot Meunier.
+                                <p><i class="mx-2">Harmonização: Ostras, caviar e queijos macios.</i></p>
+                            </li>
+                            <li>
+                                <strong>Prosecco:</strong> Originário da Itália, é mais leve e frutado, com notas de pera e flores brancas.
+                                <p><i class="mx-2">Harmonização: Petiscos, frutos do mar e sobremesas leves.</i></p>
+                            </li>
+                            <li>
+                                <strong>Cava:</strong> Espumante espanhol elaborado pelo método tradicional, com aromas cítricos e de amêndoas.
+                                <p><i class="mx-2">Harmonização: Tapas, jamón e frutos do mar.</i></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr />
+
+                <!-- Vinhos Fortificados -->
+                <div class="row">
+                    <div class="col-md-8 col-xs-12">
+                        <h4>Vinhos Fortificados</h4>
+                        <p>Os vinhos fortificados possuem adição de aguardente vínica, aumentando o teor alcoólico e a longevidade.</p>
+                        <ul>
+                            <li>
+                                <strong>Vinho do Porto:</strong> Produzido em Portugal, apresenta variações como Tawny (envelhecido em madeira) e Ruby (mais jovem e frutado).
+                                <p><i class="mx-2">Harmonização: Queijos azuis, chocolates e sobremesas intensas.</i></p>
+                            </li>
+                            <li>
+                                <strong>Jerez (Sherry):</strong> Espanhol, pode ser seco ou doce, com notas de nozes e caramelo.
+                                <p><i class="mx-2">Harmonização: Amêndoas, presunto ibérico e frutos secos.</i></p>
+                            </li>
+                            <li>
+                                <strong>Madeira:</strong> Produzido na Ilha da Madeira, é famoso por sua acidez elevada e notas de frutos secos.
+                                <p><i class="mx-2">Harmonização: Doces caramelizados, queijos curados e carnes defumadas.</i></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 d-none d-lg-block">
+                        <img src="/images/garrafa-vinho.jpg" class="img-thumbnail" alt="Garrafa de vinho">
+                    </div>
+                </div>
+
+                <hr />
+
+                <!-- Vinhos de Sobremesa -->
+                <div class="row">
+                    <div class="col-md-4 d-none d-lg-block">
+                        <img src="/images/garrafa-vinho.jpg" class="img-thumbnail" alt="Garrafa de vinho">
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <h4>Vinhos de Sobremesa</h4>
+                        <p>Os vinhos de sobremesa possuem maior concentração de açúcar, podendo ser naturais ou obtidos por técnicas específicas.</p>
+                        <ul>
+                            <li>
+                                <strong>Sauternes:</strong> Vinho doce francês produzido a partir de uvas afetadas pela "podridão nobre", conferindo notas de mel e damasco.
+                                <p><i class="mx-2">Harmonização: Foie gras, queijos azuis e sobremesas frutadas.</i></p>
+                            </li>
+                            <li>
+                                <strong>Ice Wine:</strong> Produzido em regiões frias, como Canadá e Alemanha, com uvas congeladas na videira, resultando em um vinho intensamente doce.
+                                <p><i class="mx-2">Harmonização: Tortas de frutas, cheesecake e queijos fortes.</i></p>
+                            </li>
+                            <li>
+                                <strong>Moscato d'Asti:</strong> Italiano, levemente frisante e adocicado, com aromas de pêssego e flor de laranjeira.
+                                <p><i class="mx-2">Harmonização: Frutas frescas, bolos leves e sobremesas cítricas.</i></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr />
+            </section>
+
+            <!-- Curiosidades -->
+            <section class="curiosidades tipos m-lg-5 lh-base">
+                <h3 class="fs-2 fw-bold my-3">Curiosidades</h3>
+                <ol class="lh-lg lh-sm-1">
+                    <li>
+                        <strong>É saudável beber vinho?</strong><br>
+                        Com moderação, o vinho pode trazer benefícios para a saúde, sim! Isso porque espécies tintas são ricas em polifenóis como taninos, flavonóides e resveratrol, que possuem propriedades antioxidantes. Em quantidades moderadas, essas substâncias podem oferecer benefícios à saúde cardiovascular, auxiliar na manutenção do colesterol total e LDL, prevenir inflamações no sistema linfático, entre diversos outros benefícios.
+                    </li>
+                    <li>
+                        <strong>Qual país é o maior consumidor de vinho?</strong><br>
+                        De acordo com a <a href="https://investnews.com.br/economia/dia-do-vinho-consumo-no-brasil-tem-alta-mas-portugueses-sao-os-que-mais-bebem/" class="link-body-emphasis" target="_blank">InvestNews</a>, em termos gerais, os Estados Unidos é o maior consumidor de vinho, seguido pela França e pela Itália. No entanto, na classificação de consumo per capita, Portugal ocupa o primeiro lugar, com 67,5 litros por ano (dados de 2022). O segundo lugar é da França, com 47,4 litros e, por fim, temos a Itália em terceiro lugar, com 44,4 litros.
+                    </li>
+                    <li>
+                        <strong>Champagne é só na França?</strong><br>
+                        Sim! "Champagne" faz referência à região produtora homônima na França, que possui uma denominação de origem. Isso quer dizer que a produção dos vinhos da categoria só pode ocorrer lá, seguindo uma série de regras que garantem a qualidade e a padronização da bebida. No entanto, outros países utilizam métodos similares aos do Champagne, resultando em vinhos como o Cava, na Espanha, e o Prosecco, na Itália.
+                    </li>
+                    <li>
+                        <strong>Qual o vinho mais caro do mundo?</strong><br>
+                        O vinho mais caro do mundo registrado até o momento é um Romanée-Conti 1945, que foi arrematado em leilão por cerca de $558.000 (aproximadamente R$2 milhões). No entanto, os preços de exemplares raros e colecionáveis podem variar ao longo do tempo.
+                    </li>
+                </ol>
+            </section>
+
+            <!-- Call to Action -->
+            <div class="mx-auto text-break col-lg-4 my-5 fs-4 text-center text-dark">
+                <p>Quer fazer parte desse projeto conosco?</p>
+                <p>Entre em <a href="/colaborar" class="link-body-emphasis">colaborar</a> e se cadastre!</p>
+            </div>
+        </article>
+    </main>
+
+    <%- include('partials/footer') %>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu" crossorigin="anonymous"></script>
+    <script src="/js/home.js"></script>
 </body>
 </html>
