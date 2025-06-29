@@ -1,67 +1,100 @@
+// ========================================
+// OUIWINE - SERVIDOR EXPRESS COM ROTAS
+// ========================================
+
 const express = require('express');
-const session = require('express-session');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configuração do EJS (template engine)
+// ========================================
+// CONFIGURAÇÕES BÁSICAS
+// ========================================
+
+// Template engine EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middlewares
+// Middleware para servir arquivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Middleware para parsing de formulários
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Configuração de sessão
-app.use(session({
-    secret: 'ouiwine-brenda+marcos-2025',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 } // 24 horas
-}));
+// ========================================
+// ROTAS BÁSICAS (SEM CONTROLLERS POR ENQUANTO)
+// ========================================
 
-// ROTAS TEMPORÁRIAS (substituem seus arquivos HTML)
-
-// Home - substitui home.html
+// HOME - Página principal sobre vinhos
 app.get('/', (req, res) => {
     res.render('index', { 
-        title: 'OuiWine - Degustação de Vinhos',
-        pageTitle: 'Bem-vindo ao OuiWine!'
+        title: 'OuiWine - Degustação de Vinhos' 
     });
 });
 
-// Login - substitui login.html  
+// LOGIN - Página login/cadastro
 app.get('/login', (req, res) => {
     res.render('login', { 
-        title: 'Login - OuiWine',
-        error: null 
+        title: 'Login - OuiWine' 
     });
 });
 
-// Colaborar - substitui colaborar.html
+// COLABORAR - Página formulário colaboração
 app.get('/colaborar', (req, res) => {
     res.render('colaborar', { 
-        title: 'Colaborar - OuiWine',
-        error: null,
-        success: null 
+        title: 'Colaborar - OuiWine' 
     });
 });
 
-// Rota de teste para verificar se está funcionando
-app.get('/test', (req, res) => {
-    res.json({ 
-        message: 'OuiWine Backend funcionando!',
-        timestamp: new Date().toISOString()
+// ========================================
+// ROTAS POST (PREPARADAS PARA BACKEND)
+// ========================================
+
+// LOGIN - Processar login
+app.post('/auth/login', (req, res) => {
+    // TODO: Implementar lógica de login com banco
+    console.log('Login tentativa:', req.body);
+    res.redirect('/');
+});
+
+// CADASTRO - Processar cadastro
+app.post('/auth/register', (req, res) => {
+    // TODO: Implementar lógica de cadastro com banco
+    console.log('Cadastro tentativa:', req.body);
+    res.redirect('/login');
+});
+
+// COLABORAR - Processar formulário colaboração
+app.post('/colaborar', (req, res) => {
+    // TODO: Implementar salvamento no banco
+    console.log('Nova colaboração:', req.body);
+    res.redirect('/colaborar?sucesso=1');
+});
+
+// ========================================
+// MIDDLEWARE DE ERRO 404
+// ========================================
+
+app.use((req, res) => {
+    res.status(404).render('index', { 
+        title: 'Página não encontrada - OuiWine',
+        erro: `Página ${req.url} não encontrada` 
     });
 });
 
-// Iniciar servidor
+// ========================================
+// INICIAR SERVIDOR
+// ========================================
+
 app.listen(PORT, () => {
-    console.log(`🍷 OuiWine rodando em http://localhost:${PORT}`);
-    console.log('🚀 Versão: 2.0.0 - Fullstack (Brenda + Marcos)');
-    console.log('📅 Iniciado em:', new Date().toLocaleString('pt-BR'));
+    console.log(`🍷 Servidor OuiWine rodando em http://localhost:${PORT}`);
+    console.log(`📋 Rotas disponíveis:`);
+    console.log(`   GET  / (home)`);
+    console.log(`   GET  /login`);
+    console.log(`   GET  /colaborar`);
+    console.log(`   POST /auth/login`);
+    console.log(`   POST /auth/register`);
+    console.log(`   POST /colaborar`);
 });
-
-module.exports = app;
