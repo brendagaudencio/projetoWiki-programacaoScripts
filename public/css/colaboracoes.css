@@ -9,6 +9,23 @@
   padding: 3rem 0; /* Reduzido de 5rem */
 }
 
+/* ===== ADIÇÕES PARA COMPATIBILIDADE COM TEMPLATE LIMPO ===== */
+.main-content {
+    margin-top: 7rem;
+    margin-bottom: 3rem;
+}
+
+.page-title {
+    color: #170000;
+    font-weight: bold;
+}
+
+.resultado-count {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
 /* Cards de colaboração */
 .colaboracao-card {
   transition: all 0.3s ease;
@@ -76,13 +93,14 @@
   flex-shrink: 0;
 }
 
-/* Filtros */
+/* Filtros - VERSÃO MELHORADA */
 .filtros-container {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .colaboracoes-titulo {

@@ -1,5 +1,3 @@
-/* public/css/colaborar.css - Estilos específicos para página de colaboração */
-
 .navbar {
   background-color: #170000 !important;
 }
@@ -14,13 +12,11 @@
   padding: 3rem 0;
 }
 
-/* Estilos específicos do formulário */
 .focus-ring:focus {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
 }
 
-/* Campos readonly (nome e email pré-preenchidos) */
 input[readonly] {
   background-color: #f8f9fa !important;
   border: 2px solid #e9ecef !important;
@@ -33,19 +29,11 @@ input[readonly]:focus {
   box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.25) !important;
 }
 
-/* Validação visual do CPF */
-.cpf-validando {
-  border-color: #ffc107 !important;
-  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25) !important;
-}
-
-/* Contador de caracteres */
 #contador {
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
-/* Melhorias nos alertas */
 .alert {
   border-radius: 12px;
   border: none;
@@ -62,7 +50,6 @@ input[readonly]:focus {
   color: #721c24;
 }
 
-/* Botão de submit melhorado */
 .btn-danger {
   background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
   border: none;
@@ -82,12 +69,41 @@ input[readonly]:focus {
   box-shadow: none;
 }
 
-/* Estilo para campos obrigatórios */
 .form-label .text-danger {
   color: #dc3545 !important;
 }
 
-/* Melhorias responsivas */
+.form-control:focus {
+  transition: all 0.3s ease;
+}
+
+.is-valid {
+  border-color: #28a745 !important;
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.form-text i {
+  color: #007bff;
+}
+
+.text-center a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-info:hover {
+  transform: translateY(-1px);
+}
+
 @media (max-width: 768px) {
   .form-colaborar {
     margin-top: 6rem;
@@ -102,52 +118,4 @@ input[readonly]:focus {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
   }
-}
-
-/* Animações suaves */
-.form-control:focus {
-  transition: all 0.3s ease;
-}
-
-.is-valid {
-  border-color: #28a745 !important;
-  animation: validPulse 0.6s ease-in-out;
-}
-
-.is-invalid {
-  border-color: #dc3545 !important;
-  animation: invalidShake 0.6s ease-in-out;
-}
-
-@keyframes validPulse {
-  0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
-}
-
-@keyframes invalidShake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-  20%, 40%, 60%, 80% { transform: translateX(2px); }
-}
-
-/* Estilo para informações de ajuda */
-.form-text {
-  font-size: 0.875rem;
-  color: #6c757d;
-}
-
-.form-text i {
-  color: #007bff;
-}
-
-/* Melhorias na área de navegação */
-.text-center a {
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.btn-outline-secondary:hover,
-.btn-outline-info:hover {
-  transform: translateY(-1px);
 }

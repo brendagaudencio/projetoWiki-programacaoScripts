@@ -1,5 +1,3 @@
-// public/js/login-toggle.js - COM VALIDAÇÃO DE SENHA
-
 document.addEventListener('DOMContentLoaded', function() {
     const btnLogin = document.getElementById('btn-login');
     const btnCadastro = document.getElementById('btn-cadastro');
@@ -21,21 +19,19 @@ document.addEventListener('DOMContentLoaded', function() {
         loginForm.classList.add('d-none');
     });
 
-    // 🚨 VALIDAÇÃO DE CONFIRMAÇÃO DE SENHA
+    // Validação de confirmação de senha
     const cadastroFormElement = document.getElementById('cadastro-form');
     const senhaInput = document.getElementById('inputSenhaCadastro');
     const confirmaSenhaInput = document.getElementById('inputConfirmaSenha');
 
-    // Validação em tempo real
     function validarSenhas() {
         const senha = senhaInput.value;
         const confirmaSenha = confirmaSenhaInput.value;
         
-        // Remove classes anteriores
         confirmaSenhaInput.classList.remove('is-valid', 'is-invalid');
         
         if (confirmaSenha === '') {
-            return; // Não validar se campo vazio
+            return;
         }
         
         if (senha === confirmaSenha) {
@@ -57,12 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const confirmaSenha = confirmaSenhaInput.value;
         
         if (senha !== confirmaSenha) {
-            e.preventDefault(); // Impede envio
+            e.preventDefault();
             
-            // Mostrar erro visual
             confirmaSenhaInput.classList.add('is-invalid');
             
-            // Criar ou atualizar mensagem de erro
             let errorDiv = document.querySelector('.senha-error');
             if (!errorDiv) {
                 errorDiv = document.createElement('div');
@@ -71,10 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             errorDiv.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>As senhas não coincidem!';
             
-            // Focar no campo de confirmação
             confirmaSenhaInput.focus();
             
-            // Remover erro após 5 segundos
             setTimeout(() => {
                 if (errorDiv.parentNode) {
                     errorDiv.parentNode.removeChild(errorDiv);
@@ -84,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
         
-        // Remove erro se existir
         const errorDiv = document.querySelector('.senha-error');
         if (errorDiv && errorDiv.parentNode) {
             errorDiv.parentNode.removeChild(errorDiv);
