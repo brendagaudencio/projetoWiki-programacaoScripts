@@ -1,17 +1,14 @@
-// public/js/colaborar.js - Validações para formulário de colaboração
-
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('formGeral');
     const cpfInput = document.getElementById('cpf');
     const mensagemInput = document.getElementById('mensagem');
     const contador = document.getElementById('contador');
 
-    // ✅ CONTADOR DE CARACTERES
+    // Contador de caracteres
     mensagemInput.addEventListener('input', function() {
         const length = this.value.length;
         contador.textContent = `${length}/500`;
         
-        // Feedback visual do contador
         if (length < 10) {
             contador.className = 'text-warning fw-bold';
         } else if (length > 450) {
@@ -21,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ✅ MÁSCARA E VALIDAÇÃO DE CPF
+    // Máscara e validação de CPF
     cpfInput.addEventListener('input', function() {
         // Aplicar máscara
         let value = this.value.replace(/\D/g, '');
@@ -30,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
         this.value = value;
 
-        // Validar CPF em tempo real
+        // Validar CPF
         const cpfLimpo = value.replace(/\D/g, '');
         if (cpfLimpo.length === 11) {
             if (isValidCPF(cpfLimpo)) {
@@ -45,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ✅ VALIDAÇÃO DO FORMULÁRIO
+    // Validação do formulário
     form.addEventListener('submit', function(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -72,21 +69,18 @@ document.addEventListener('DOMContentLoaded', function() {
             mensagemInput.classList.add('is-valid');
         }
 
-        // Aplicar classes de validação do Bootstrap
         form.classList.add('was-validated');
 
-        // Submeter se válido
         if (isValid && form.checkValidity()) {
-            // Mostrar loading no botão
+            // Loading no botão
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Enviando...';
             submitBtn.disabled = true;
 
-            // Submeter formulário
             form.submit();
         } else {
-            // Scroll para o primeiro campo inválido
+            // Scroll para primeiro campo inválido
             const firstInvalid = form.querySelector('.is-invalid');
             if (firstInvalid) {
                 firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -95,14 +89,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ✅ FUNÇÃO DE VALIDAÇÃO DE CPF
+    // Função de validação de CPF
     function isValidCPF(cpf) {
-        // Eliminar CPFs conhecidos como inválidos
         if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
             return false;
         }
 
-        // Validar primeiro dígito verificador
         let soma = 0;
         let resto;
 
@@ -114,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (resto === 10 || resto === 11) resto = 0;
         if (resto !== parseInt(cpf.substring(9, 10))) return false;
 
-        // Validar segundo dígito verificador
         soma = 0;
         for (let i = 1; i <= 10; i++) {
             soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
@@ -126,17 +117,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return resto === parseInt(cpf.substring(10, 11));
     }
 
-    // ✅ INICIALIZAÇÃO
-    // Contar caracteres iniciais (caso haja conteúdo pré-preenchido)
+    // Inicialização
     if (mensagemInput.value) {
         mensagemInput.dispatchEvent(new Event('input'));
     }
 
-    // Auto-focus no primeiro campo editável
     cpfInput.focus();
 });
 
-// ✅ FUNÇÃO GLOBAL PARA MOSTRAR ERRO DE CPF (se necessário)
+// Função global para erro de CPF
 window.showCPFError = function(message) {
     const cpfInput = document.getElementById('cpf');
     const feedback = cpfInput.nextElementSibling;

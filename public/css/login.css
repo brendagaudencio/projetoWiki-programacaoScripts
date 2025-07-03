@@ -1,9 +1,9 @@
-/* public/css/login.css - Versão melhorada (OPCIONAL) */
-
+/* Navbar padrão OuiWine */
 .navbar {
-    background-color: #170000;
+    background-color: #170000 !important;
 }
 
+/* Layout */
 .login {
     margin: 10rem 0;
 }
@@ -13,22 +13,18 @@
     padding: 5rem 0;
 }
 
-/* ====== MELHORIAS OPCIONAIS (podem ser adicionadas) ====== */
-
-/* Estilo para os botões de toggle login/cadastro */
+/* Form styles */
 .btn-toggle.active {
     background-color: #170000 !important;
     border-color: #170000 !important;
     color: white !important;
 }
 
-/* Melhoria sutil nos campos de formulário */
 .form-control:focus {
     border-color: #170000;
     box-shadow: 0 0 0 0.2rem rgba(23, 0, 0, 0.25);
 }
 
-/* Botão principal */
 .btn-danger {
     background-color: #170000;
     border-color: #170000;
@@ -39,7 +35,6 @@
     border-color: #2d0000;
 }
 
-/* Alertas mais suaves */
 .alert {
     border-radius: 8px;
     border: none;
