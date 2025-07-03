@@ -23,16 +23,49 @@
                     <a class="nav-link active link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" 
                        aria-current="page" href="/colaborar">Colaborar</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" 
+                       aria-current="page" href="/colaboracoes">Colaborações</a>
+                </li>
             </ul>
             
-            <!-- Área de Status do Usuário (será preenchida dinamicamente) -->
-            <div class="d-flex align-items-center" id="user-status-area">
-                <!-- JavaScript preencherá esta área -->
-                <a class="nav-link active" aria-current="page" href="/login">
-                    <button type="button" class="btn btn-danger">
-                        <i class="bi bi-person-circle me-1"></i>Login
-                    </button>
-                </a>
+            <!-- Status do usuário -->
+            <div class="d-flex align-items-center">
+                <% if (locals.isLoggedIn && locals.user) { %>
+                    <!-- Usuário logado -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" 
+                                id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-check-fill"></i> 
+                            <%= locals.user.nome.split(' ')[0] %>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><h6 class="dropdown-header">
+                                <i class="bi bi-person-circle me-2"></i>
+                                <%= locals.user.nome %>
+                            </h6></li>
+                            <li><span class="dropdown-item-text text-muted small">
+                                <i class="bi bi-envelope me-2"></i>
+                                <%= locals.user.email %>
+                            </span></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="POST" action="/auth/logout" class="d-inline">
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="bi bi-box-arrow-right me-2"></i>Sair
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                <% } else { %>
+                    <!-- Usuário não logado -->
+                    <a class="nav-link active" aria-current="page" href="/auth/login">
+                        <button type="button" class="btn btn-danger">
+                            <i class="bi bi-person-circle me-1"></i>Login
+                        </button>
+                    </a>
+                <% } %>
             </div>
         </div>
     </div>
