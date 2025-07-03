@@ -26,6 +26,29 @@
                     </div>
                 </div>
 
+                <!-- 🚨 CORREÇÃO: FLASH MESSAGES ADICIONADAS -->
+                <% if (typeof messages !== 'undefined' && messages) { %>
+                    <% if (messages.error && messages.error.length > 0) { %>
+                        <div class="alert alert-danger alert-dismissible fade show mx-auto col-lg-4 mb-4" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <% messages.error.forEach(function(error) { %>
+                                <div><%= error %></div>
+                            <% }); %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <% } %>
+                    
+                    <% if (messages.success && messages.success.length > 0) { %>
+                        <div class="alert alert-success alert-dismissible fade show mx-auto col-lg-4 mb-4" role="alert">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            <% messages.success.forEach(function(success) { %>
+                                <div><%= success %></div>
+                            <% }); %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <% } %>
+                <% } %>
+
                 <!-- Formulário de Login -->
                 <form id="login-form" action="/auth/login" method="POST" 
                       class="mx-auto text-break p-5 bg-dark-subtle col-lg-4 mb-5 rounded">
@@ -50,8 +73,6 @@
                     <button type="submit" class="btn btn-danger text-center mt-3 container-fluid">
                         Entrar
                     </button>
-                    
-                    <div id="login-message-success" class="my-3"></div>
                 </form>
 
                 <!-- Formulário de Cadastro (Inicialmente oculto) -->
@@ -85,7 +106,7 @@
                     
                     <div class="mb-3">
                         <label for="inputConfirmaSenha" class="form-label">Confirmar Senha</label>
-                        <input type="password" id="inputConfirmaSenha" name="confirmaSenha"
+                        <input type="password" id="inputConfirmaSenha" name="confirmarSenha"
                                class="form-control focus-ring focus-ring-light"
                                aria-describedby="Campo para confirmar senha"
                                placeholder="Digite a senha novamente" required>
@@ -94,8 +115,6 @@
                     <button type="submit" class="btn btn-danger text-center mt-3 container-fluid">
                         Criar Conta
                     </button>
-                    
-                    <div id="cadastro-message-success" class="my-3"></div>
                 </form>
 
                 <!-- Link voltar para home -->
@@ -111,6 +130,6 @@
     <%- include('partials/footer') %>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu" crossorigin="anonymous"></script>
-    <script src="/js/login.js"></script>
+    <script src="/js/login-toggle.js"></script>
 </body>
 </html>
