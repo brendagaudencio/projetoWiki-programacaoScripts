@@ -29,10 +29,8 @@
                 </li>
             </ul>
             
-            <!-- Status do usuário -->
             <div class="d-flex align-items-center">
                 <% if (locals.isLoggedIn && locals.user) { %>
-                    <!-- Usuário logado -->
                     <div class="dropdown">
                         <button class="btn btn-outline-light dropdown-toggle" type="button" 
                                 id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,7 +57,6 @@
                         </ul>
                     </div>
                 <% } else { %>
-                    <!-- Usuário não logado -->
                     <a class="nav-link active" aria-current="page" href="/auth/login">
                         <button type="button" class="btn btn-danger">
                             <i class="bi bi-person-circle me-1"></i>Login

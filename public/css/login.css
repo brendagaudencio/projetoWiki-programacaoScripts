@@ -1,7 +1,9 @@
+/* Navbar padrão OuiWine */
 .navbar {
-    background-color: #170000;
+    background-color: #170000 !important;
 }
 
+/* Layout */
 .login {
     margin: 10rem 0;
 }
@@ -11,6 +13,7 @@
     padding: 5rem 0;
 }
 
+/* Form styles */
 .btn-toggle.active {
     background-color: #170000 !important;
     border-color: #170000 !important;

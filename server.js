@@ -26,14 +26,13 @@ app.use(session({
     cookie: {
         secure: false,
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000 // 24 horas
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
 
-// Flash messages
 app.use(flash());
 
-// Middleware global - popula dados do usuário para views
+// Middleware global para dados do usuário
 app.use(async (req, res, next) => {
     try {
         res.locals.messages = req.flash();
@@ -42,10 +41,10 @@ app.use(async (req, res, next) => {
         
         if (req.session?.userId) {
             const user = await User.findByPk(req.session.userId, {
-                attributes: ['id', 'nome', 'email', 'cpf', 'ativo'] // ✅ INCLUIR ATIVO
+                attributes: ['id', 'nome', 'email', 'cpf', 'ativo']
             });
             
-            // ✅ VERIFICAR SE USUÁRIO EXISTE E ESTÁ ATIVO (compatibilidade)
+            // Verificar se usuário existe e está ativo
             if (user && (user.ativo === undefined || user.ativo === true || user.ativo === 1)) {
                 res.locals.isLoggedIn = true;
                 res.locals.user = {
@@ -55,7 +54,6 @@ app.use(async (req, res, next) => {
                     cpf: user.cpf
                 };
             } else {
-                // Usuário inativo ou não existe - limpar sessão
                 req.session.destroy();
             }
         }
@@ -82,7 +80,7 @@ app.use('/', homeRoutes);
 app.use('/auth', authRoutes);
 app.use('/', colaboracaoRoutes);
 
-// Tratamento de erros
+// Tratamento de erros 404
 app.use((req, res) => {
     res.status(404).render('error', {
         title: 'Página não encontrada - OuiWine',
@@ -95,6 +93,7 @@ app.use((req, res) => {
     });
 });
 
+// Tratamento de erros 500
 app.use((err, req, res, next) => {
     console.error('Erro interno do servidor:', err.stack);
     
@@ -113,11 +112,11 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Inicialização
+// Inicialização do servidor
 async function startServer() {
     try {
         await sequelize.sync();
-        console.log('✅ Banco de dados sincronizado');
+        console.log('Banco de dados sincronizado');
 
         app.listen(PORT, () => {
             console.log('\n🍷 ===== OUIWINE SERVIDOR INICIADO =====');
@@ -127,20 +126,20 @@ async function startServer() {
         });
 
     } catch (error) {
-        console.error('❌ Erro ao iniciar servidor:', error.message);
+        console.error('Erro ao iniciar servidor:', error.message);
         process.exit(1);
     }
 }
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
-    console.log('\n🛑 Encerrando servidor OuiWine...');
+    console.log('\nEncerrando servidor OuiWine...');
     
     try {
         await sequelize.close();
-        console.log('✅ Conexões do banco fechadas');
+        console.log('Conexões do banco fechadas');
     } catch (error) {
-        console.error('❌ Erro ao fechar banco:', error.message);
+        console.error('Erro ao fechar banco:', error.message);
     }
     
     process.exit(0);

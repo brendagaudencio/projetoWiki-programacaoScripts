@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Colaboracoes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -20,31 +20,45 @@ module.exports = {
       email: {
         type: Sequelize.STRING(255),
         allowNull: false,
-        unique: true,
         validate: {
           isEmail: true,
           notEmpty: true
         }
       },
-      senha_hash: {
-        type: Sequelize.STRING(255),
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
-      },
-      ativo: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
-        allowNull: false
-      },
       cpf: {
         type: Sequelize.STRING(11),
-        allowNull: true,
+        allowNull: false,
         validate: {
+          notEmpty: true,
           len: [11, 11],
           isNumeric: true
         }
+      },
+      mensagem: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [10, 500]
+        }
+      },
+      status: {
+        type: Sequelize.STRING(20),
+        allowNull: false,
+        defaultValue: 'aprovada',
+        validate: {
+          isIn: [['pendente', 'aprovada', 'rejeitada']]
+        }
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
@@ -55,21 +69,30 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
-    
+
     // Índices para performance
-    await queryInterface.addIndex('Users', ['email'], {
-      name: 'users_email_unique',
-      unique: true
-    });
-    
-    await queryInterface.addIndex('Users', ['cpf'], {
-      name: 'users_cpf_index'
+    await queryInterface.addIndex('Colaboracoes', ['userId'], {
+      name: 'colaboracoes_user_id'
     });
 
-    console.log('✅ Tabela Users criada com CPF incluído');
+    await queryInterface.addIndex('Colaboracoes', ['status'], {
+      name: 'colaboracoes_status'
+    });
+
+    await queryInterface.addIndex('Colaboracoes', ['createdAt'], {
+      name: 'colaboracoes_created_at'
+    });
+
+    await queryInterface.addIndex('Colaboracoes', ['email'], {
+      name: 'colaboracoes_email'
+    });
+
+    await queryInterface.addIndex('Colaboracoes', ['cpf'], {
+      name: 'colaboracoes_cpf_performance'
+    });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Colaboracoes');
   }
 };

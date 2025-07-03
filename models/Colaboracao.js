@@ -1,16 +1,14 @@
-// models/Colaboracao.js - COM CAMPO USERID
-
 'use strict';
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Colaboracao extends Model {
     static associate(models) {
-      // ✅ ASSOCIAÇÃO COM USER
+      // Associação N:1 com User
       Colaboracao.belongsTo(models.User, {
         foreignKey: 'userId',
         as: 'author',
-        onDelete: 'SET NULL' // Se usuário for deletado, colaboração permanece
+        onDelete: 'SET NULL'
       });
     }
   }
@@ -77,12 +75,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.ENUM('pendente', 'aprovada', 'rejeitada'),
-      defaultValue: 'aprovada', // Auto-aprovar por enquanto
+      defaultValue: 'aprovada',
       allowNull: false
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: true, // Pode ser null para colaborações anônimas antigas
+      allowNull: true,
       references: {
         model: 'Users',
         key: 'id'

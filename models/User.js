@@ -34,11 +34,11 @@ module.exports = (sequelize) => {
         ativo: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: true // ✅ COMPATÍVEL COM CAMPO EXISTENTE
+            defaultValue: true
         },
         cpf: {
             type: DataTypes.STRING(11),
-            allowNull: true, // Opcional - será preenchido na primeira colaboração
+            allowNull: true,
             validate: {
                 len: [11, 11],
                 isNumeric: true,
@@ -54,7 +54,7 @@ module.exports = (sequelize) => {
         tableName: 'Users'
     });
 
-    // Associações
+    // Associação com Colaboracao
     User.associate = function(models) {
         User.hasMany(models.Colaboracao, {
             foreignKey: 'userId',
@@ -65,7 +65,7 @@ module.exports = (sequelize) => {
     return User;
 };
 
-// Função de validação de CPF
+// Validação de CPF
 function isValidCPFNumber(cpf) {
     if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
         return false;
@@ -74,6 +74,7 @@ function isValidCPFNumber(cpf) {
     let soma = 0;
     let resto;
 
+    // Primeiro dígito verificador
     for (let i = 1; i <= 9; i++) {
         soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
     }
@@ -82,6 +83,7 @@ function isValidCPFNumber(cpf) {
     if (resto === 10 || resto === 11) resto = 0;
     if (resto !== parseInt(cpf.substring(9, 10))) return false;
 
+    // Segundo dígito verificador
     soma = 0;
     for (let i = 1; i <= 10; i++) {
         soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);

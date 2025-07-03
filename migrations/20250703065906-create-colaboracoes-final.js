@@ -28,7 +28,6 @@ module.exports = {
       cpf: {
         type: Sequelize.STRING(11),
         allowNull: false,
-        // SEM UNIQUE - permite múltiplas colaborações do mesmo usuário
         validate: {
           notEmpty: true,
           len: [11, 11],
@@ -71,7 +70,7 @@ module.exports = {
       }
     });
 
-    // Índices para performance (SEM unique no CPF)
+    // Índices para performance
     await queryInterface.addIndex('Colaboracoes', ['userId'], {
       name: 'colaboracoes_user_id'
     });
@@ -88,12 +87,9 @@ module.exports = {
       name: 'colaboracoes_email'
     });
 
-    // Índice de performance no CPF (mas não unique)
     await queryInterface.addIndex('Colaboracoes', ['cpf'], {
       name: 'colaboracoes_cpf_performance'
     });
-
-    console.log('✅ Tabela Colaboracoes criada sem constraint UNIQUE no CPF');
   },
 
   async down(queryInterface, Sequelize) {
