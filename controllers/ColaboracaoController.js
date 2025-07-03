@@ -1,4 +1,4 @@
-const { Colaboracao } = require('../models');
+const { Colaboracao, User } = require('../models');
 
 class ColaboracaoController {
     
@@ -76,6 +76,14 @@ class ColaboracaoController {
             const { nome, email, cpf, mensagem } = req.body;
             const userId = req.session.userId;
 
+            console.log('🔍 DEBUG - Dados recebidos:', {
+                nome: nome ? 'OK' : 'FALTANDO',
+                email: email ? 'OK' : 'FALTANDO',
+                cpf: cpf ? 'OK' : 'FALTANDO',
+                mensagem: mensagem ? `${mensagem.length} chars` : 'FALTANDO',
+                userId: userId || 'FALTANDO'
+            });
+
             // Validações obrigatórias
             if (!nome || !email || !cpf || !mensagem) {
                 req.flash('error', 'Todos os campos são obrigatórios.');
@@ -84,6 +92,8 @@ class ColaboracaoController {
 
             // Validar CPF
             const cpfLimpo = cpf.replace(/[^\d]/g, '');
+            console.log('🔍 DEBUG - CPF limpo:', cpfLimpo);
+
             if (cpfLimpo.length !== 11 || !isValidCPF(cpfLimpo)) {
                 req.flash('error', 'CPF inválido. Verifique os números digitados.');
                 return res.redirect('/colaborar');
@@ -96,21 +106,31 @@ class ColaboracaoController {
                 return res.redirect('/colaborar');
             }
 
-            // Verificar colaboração existente
-            const colaboracaoExistente = await Colaboracao.findOne({
-                where: { 
-                    email: email.toLowerCase().trim(),
-                    status: 'aprovada'
-                }
-            });
-
-            if (colaboracaoExistente) {
-                req.flash('error', 'Você já possui uma colaboração aprovada. Entre em contato conosco para enviar uma nova história.');
-                return res.redirect('/colaboracoes');
+            // Buscar usuário atual
+            const user = await User.findByPk(userId);
+            if (!user) {
+                req.flash('error', 'Usuário não encontrado. Faça login novamente.');
+                return res.redirect('/auth/login');
             }
 
-            // Criar colaboração
-            await Colaboracao.create({
+            console.log('🔍 DEBUG - Usuário encontrado:', user.nome);
+
+            // Salvar CPF no User se ele não tiver
+            if (!user.cpf) {
+                try {
+                    await user.update({ cpf: cpfLimpo });
+                    console.log('✅ CPF salvo no usuário:', cpfLimpo);
+                } catch (cpfError) {
+                    console.error('⚠️ Erro ao salvar CPF no usuário:', cpfError.message);
+                    // Continuar mesmo se não conseguir salvar CPF no User
+                }
+            } else {
+                console.log('ℹ️ Usuário já possui CPF:', user.cpf);
+            }
+
+            // ✅ CRIAR COLABORAÇÃO (SEM VERIFICAÇÃO DE CPF DUPLICADO)
+            // Agora permite múltiplas colaborações do mesmo usuário
+            const novaColaboracao = await Colaboracao.create({
                 nome: nome.trim(),
                 email: email.toLowerCase().trim(),
                 cpf: cpfLimpo,
@@ -119,19 +139,21 @@ class ColaboracaoController {
                 userId: userId
             });
 
+            console.log('✅ Colaboração criada com sucesso! ID:', novaColaboracao.id);
+
             req.flash('success', `Obrigado, ${nome.split(' ')[0]}! Sua história foi compartilhada com sucesso.`);
             res.redirect('/colaboracoes');
 
         } catch (error) {
-            console.error('Erro ao salvar colaboração:', error.message);
+            console.error('❌ ERRO COMPLETO ao salvar colaboração:', error);
             
             if (error.name === 'SequelizeValidationError') {
-                const mensagem = error.errors.map(err => err.message).join(', ');
-                req.flash('error', mensagem);
-            } else if (error.name === 'SequelizeUniqueConstraintError') {
-                req.flash('error', 'Este CPF já foi utilizado em outra colaboração.');
+                const mensagem = error.errors.map(err => `${err.path}: ${err.message}`).join(', ');
+                req.flash('error', `Erro de validação: ${mensagem}`);
+            } else if (error.name === 'SequelizeForeignKeyConstraintError') {
+                req.flash('error', 'Erro de relacionamento no banco. Faça login novamente.');
             } else {
-                req.flash('error', 'Erro interno. Tente novamente em alguns minutos.');
+                req.flash('error', `Erro interno: ${error.message}`);
             }
             
             res.redirect('/colaborar');

@@ -117,8 +117,7 @@ module.exports = (sequelize, DataTypes) => {
         fields: ['email']
       },
       {
-        unique: true,
-        fields: ['cpf'] // CPF único no sistema
+        fields: ['cpf']
       }
     ]
   });

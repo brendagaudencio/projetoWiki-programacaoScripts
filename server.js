@@ -41,16 +41,21 @@ app.use(async (req, res, next) => {
         res.locals.user = null;
         
         if (req.session?.userId) {
-            const user = await User.findByPk(req.session.userId);
+            const user = await User.findByPk(req.session.userId, {
+                attributes: ['id', 'nome', 'email', 'cpf', 'ativo'] // ✅ INCLUIR ATIVO
+            });
             
-            if (user) {
+            // ✅ VERIFICAR SE USUÁRIO EXISTE E ESTÁ ATIVO (compatibilidade)
+            if (user && (user.ativo === undefined || user.ativo === true || user.ativo === 1)) {
                 res.locals.isLoggedIn = true;
                 res.locals.user = {
                     id: user.id,
                     nome: user.nome,
-                    email: user.email
+                    email: user.email,
+                    cpf: user.cpf
                 };
             } else {
+                // Usuário inativo ou não existe - limpar sessão
                 req.session.destroy();
             }
         }

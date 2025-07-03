@@ -108,21 +108,38 @@
                                    style="background-color: #f8f9fa; border: 2px solid #e9ecef;">
                         </div>
 
-                        <!-- CPF (obrigatório) -->
+                        <!-- ✅ CPF (PRÉ-PREENCHIDO MASCARADO SE EXISTIR) -->
                         <div class="mb-3">
                             <label for="cpf" class="form-label">
                                 <i class="bi bi-card-text me-2 text-danger"></i>CPF 
                                 <span class="text-danger">*</span>
+                                <% if (locals.user.cpf) { %>
+                                    <i class="bi bi-check-circle-fill text-success ms-2" title="CPF já cadastrado"></i>
+                                <% } %>
                             </label>
-                            <input type="text" class="form-control" id="cpf" name="cpf" 
-                                   placeholder="000.000.000-00" required maxlength="14">
-                            <div class="invalid-feedback">
-                                Por favor, informe um CPF válido.
-                            </div>
-                            <div class="form-text">
-                                <i class="bi bi-shield-check me-1"></i>
-                                Seus dados são protegidos e usados apenas para controle interno.
-                            </div>
+                            
+                            <% if (locals.user.cpf) { %>
+                                <!-- CPF já existe - mostrar mascarado + campo hidden -->
+                                <input type="text" class="form-control" 
+                                       value="***.***.***-<%= locals.user.cpf.slice(-2) %>" 
+                                       readonly style="background-color: #f8f9fa; border: 2px solid #e9ecef;">
+                                <input type="hidden" name="cpf" value="<%= locals.user.cpf %>">
+                                <div class="form-text">
+                                    <i class="bi bi-shield-check me-1 text-success"></i>
+                                    CPF já cadastrado no seu perfil (***.***.***-<%= locals.user.cpf.slice(-2) %>)
+                                </div>
+                            <% } else { %>
+                                <!-- CPF não existe - campo editável -->
+                                <input type="text" class="form-control" id="cpf" name="cpf" 
+                                       placeholder="000.000.000-00" required maxlength="14">
+                                <div class="invalid-feedback">
+                                    Por favor, informe um CPF válido.
+                                </div>
+                                <div class="form-text">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Será salvo no seu perfil para próximas colaborações
+                                </div>
+                            <% } %>
                         </div>
 
                         <!-- Mensagem (obrigatório) -->
