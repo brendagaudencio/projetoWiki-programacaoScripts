@@ -9,7 +9,11 @@
     "dev": "ts-node src/server.ts",
     "dev:watch": "ts-node --watch src/server.ts",
     "migrate": "npx sequelize-cli db:migrate",
-    "migrate:undo": "npx sequelize-cli db:migrate:undo"
+    "migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "db:reset": "node -e \"const fs = require('fs'); if(fs.existsSync('database.sqlite')) { try { fs.unlinkSync('database.sqlite'); console.log('🗑️ Banco removido!'); } catch(e) { console.log('❌ Erro: Pare o servidor primeiro! (Ctrl+C em npm run dev)'); process.exit(1); } } else { console.log('ℹ️ Banco já não existe.'); }\" && npm run migrate && echo \"✅ Banco zerado criado!\"",
+    "db:demo": "node -e \"const fs = require('fs'); if(fs.existsSync('database-demo.sqlite')) { fs.copyFileSync('database-demo.sqlite', 'database.sqlite'); console.log('📊 Dados demo restaurados!'); } else { console.log('❌ Arquivo database-demo.sqlite não encontrado!'); }\"",
+    "db:clean": "npm run db:reset && echo \"🚀 Use: npm run dev\"",
+    "db:status": "node -e \"const fs = require('fs'); const demo = fs.existsSync('database-demo.sqlite'); const main = fs.existsSync('database.sqlite'); console.log('📊 Status do Banco:'); console.log('- database.sqlite:', main ? '✅ Existe' : '❌ Não existe'); console.log('- database-demo.sqlite:', demo ? '✅ Existe' : '❌ Não existe');\""
   },
   "keywords": [
     "vinhos",
@@ -19,8 +23,8 @@
     "programacao-scripts"
   ],
   "authors": [
-    "Brenda Gaudêncio <brendagaudencio@fatec.sp.gov.br>",
-    "Marcos Moreira <marcos.moreira@fatec.sp.gov.br>"
+    "Brenda Gaudêncio",
+    "Marcos Moreira"
   ],
   "license": "MIT",
   "dependencies": {

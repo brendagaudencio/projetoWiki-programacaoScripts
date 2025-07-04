@@ -18,10 +18,25 @@ npm run docker:prod:d
 git clone [repo]
 cd ouiwine
 npm install
-npm run migrate
 npm run dev
 ```
 **Acesse:** http://localhost:3000
+
+---
+
+## 🗄️ **Banco de Dados**
+
+### **📊 Dados Demo Incluídos**
+O projeto vem com dados de demonstração:
+- **Usuários** já cadastrados para teste
+- **Colaborações** de exemplo sobre vinhos
+
+### **🔄 Comandos de Banco**
+```bash
+npm run db:reset    # Banco zerado (vazio)
+npm run db:demo     # Restaurar dados demo
+npm run db:status   # Ver status dos arquivos
+```
 
 ---
 
@@ -42,17 +57,10 @@ npm run dev
 
 ### **🐳 Docker**
 ```bash
-# Via npm (recomendado)
 npm run docker:build      # Build da imagem TypeScript
 npm run docker:prod:d     # Rodar produção (porta 80)
 npm run docker:logs       # Ver logs
 npm run docker:stop       # Parar containers
-
-# Comandos diretos
-docker build -t ouiwine .
-docker-compose up -d
-docker-compose logs -f
-docker-compose down
 ```
 
 ### **💻 Local**
@@ -61,7 +69,6 @@ npm run dev              # Desenvolvimento (ts-node)
 npm run build            # Compilar TypeScript → JavaScript
 npm start                # Produção (node dist/)
 npm run migrate          # Criar banco de dados
-npm run migrate:undo     # Reverter migrations
 ```
 
 ---
@@ -99,7 +106,6 @@ ouiwine/
 ├── dist/                 # JavaScript compilado (build)
 ├── config/               # Configurações Sequelize
 ├── migrations/           # Banco de dados
-├── controllers/          # HomeController.js (transitório)
 ├── public/               # CSS, JS, imagens
 ├── views/                # Templates EJS
 ├── Dockerfile            # Container multi-stage
@@ -118,42 +124,6 @@ ouiwine/
 | `/auth/login` | Login/cadastro | Pública |
 | `/colaborar` | Formulário experiências | Login |
 | `/colaboracoes` | Lista de histórias | Pública |
-
----
-
-## 🔧 **Configuração**
-
-### **Ambiente**
-```bash
-# Copiar arquivo de exemplo
-cp .env.example .env.development
-
-# Configurar (opcional)
-PORT=3000
-NODE_ENV=development
-SESSION_SECRET=your-secret
-```
-
-### **Banco de Dados**
-```bash
-# Criar tabelas
-npm run migrate
-
-# Verificar
-ls database.sqlite
-```
-
-### **TypeScript**
-```bash
-# Compilar código TypeScript
-npm run build
-
-# Verificar build
-ls dist/
-
-# Desenvolvimento com hot reload
-npm run dev
-```
 
 ---
 
@@ -178,25 +148,8 @@ kill -9 $(lsof -t -i:3000)
 rm -rf node_modules package-lock.json
 npm install
 
-# Recompilar TypeScript
-npm run build
-
 # Recriar banco
-rm database.sqlite
-npm run migrate
-```
-
-### **TypeScript**
-```bash
-# Erros de compilação
-npm run build
-
-# Verificar tipos
-npx tsc --noEmit
-
-# Limpar build
-rm -rf dist/
-npm run build
+npm run db:reset
 ```
 
 ---
