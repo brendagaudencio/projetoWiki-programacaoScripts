@@ -34,6 +34,7 @@ npm run dev
 **Para execução local:**
 - Node.js >= 16.0.0
 - npm >= 8.0.0
+- TypeScript >= 4.0.0 (instalado automaticamente)
 
 ---
 
@@ -42,7 +43,7 @@ npm run dev
 ### **🐳 Docker**
 ```bash
 # Via npm (recomendado)
-npm run docker:build      # Build da imagem
+npm run docker:build      # Build da imagem TypeScript
 npm run docker:prod:d     # Rodar produção (porta 80)
 npm run docker:logs       # Ver logs
 npm run docker:stop       # Parar containers
@@ -56,8 +57,9 @@ docker-compose down
 
 ### **💻 Local**
 ```bash
-npm run dev              # Desenvolvimento
-npm start                # Produção
+npm run dev              # Desenvolvimento (ts-node)
+npm run build            # Compilar TypeScript → JavaScript
+npm start                # Produção (node dist/)
 npm run migrate          # Criar banco de dados
 npm run migrate:undo     # Reverter migrations
 ```
@@ -75,10 +77,11 @@ npm run migrate:undo     # Reverter migrations
 
 ## ⚡ **Stack Técnica**
 
-- **Backend:** Node.js + Express + Sequelize + SQLite
+- **Backend:** Node.js + Express + TypeScript + Sequelize + SQLite
 - **Frontend:** EJS + Bootstrap + CSS customizado
-- **Container:** Docker + docker-compose
+- **Container:** Docker + docker-compose (multi-stage build)
 - **Autenticação:** express-session + bcryptjs
+- **Build:** TypeScript Compiler (tsc) + ts-node
 
 ---
 
@@ -86,17 +89,23 @@ npm run migrate:undo     # Reverter migrations
 
 ```
 ouiwine/
-├── config/             # Configurações Sequelize
-├── controllers/        # Lógica de negócio
-├── middleware/         # Autenticação
-├── migrations/         # Banco de dados
-├── models/            # User, Colaboracao
-├── public/            # CSS, JS, imagens
-├── routes/            # Rotas da aplicação
-├── views/             # Templates EJS
-├── Dockerfile         # Container
-├── docker-compose.yml # Orquestração
-└── server.js          # Entry point
+├── src/                   # Código TypeScript
+│   ├── controllers/       # Lógica de negócio (TS)
+│   ├── middleware/        # Autenticação (TS)
+│   ├── models/           # User, Colaboracao (TS)
+│   ├── routes/           # Rotas da aplicação (TS)
+│   ├── types/            # Interfaces TypeScript
+│   └── server.ts         # Entry point TypeScript
+├── dist/                 # JavaScript compilado (build)
+├── config/               # Configurações Sequelize
+├── migrations/           # Banco de dados
+├── controllers/          # HomeController.js (transitório)
+├── public/               # CSS, JS, imagens
+├── views/                # Templates EJS
+├── Dockerfile            # Container multi-stage
+├── docker-compose.yml    # Orquestração
+├── tsconfig.json         # Configuração TypeScript
+└── package.json          # Scripts e dependências
 ```
 
 ---
@@ -134,6 +143,18 @@ npm run migrate
 ls database.sqlite
 ```
 
+### **TypeScript**
+```bash
+# Compilar código TypeScript
+npm run build
+
+# Verificar build
+ls dist/
+
+# Desenvolvimento com hot reload
+npm run dev
+```
+
 ---
 
 ## 🚨 **Problemas Comuns**
@@ -157,9 +178,25 @@ kill -9 $(lsof -t -i:3000)
 rm -rf node_modules package-lock.json
 npm install
 
+# Recompilar TypeScript
+npm run build
+
 # Recriar banco
 rm database.sqlite
 npm run migrate
+```
+
+### **TypeScript**
+```bash
+# Erros de compilação
+npm run build
+
+# Verificar tipos
+npx tsc --noEmit
+
+# Limpar build
+rm -rf dist/
+npm run build
 ```
 
 ---

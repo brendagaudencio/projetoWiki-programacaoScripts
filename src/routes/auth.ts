@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const AuthController = require('../controllers/AuthController');
-const { redirectIfLoggedIn } = require('../middleware/authMiddleware');
+import express, { Router } from 'express';
+import AuthController from '../controllers/AuthController';
+import { redirectIfLoggedIn } from '../middleware/authMiddleware';
+
+const router: Router = express.Router();
 
 // Página de login (redireciona se já logado)
 router.get('/login', redirectIfLoggedIn, AuthController.loginPage);
@@ -15,4 +16,4 @@ router.post('/register', redirectIfLoggedIn, AuthController.register);
 // Logout
 router.post('/logout', AuthController.logout);
 
-module.exports = router;
+export default router;

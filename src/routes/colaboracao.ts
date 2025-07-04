@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const ColaboracaoController = require('../controllers/ColaboracaoController');
-const { requireAuth } = require('../middleware/authMiddleware');
+import express, { Router } from 'express';
+import ColaboracaoController from '../controllers/ColaboracaoController';
+import { requireAuth } from '../middleware/authMiddleware';
+
+const router: Router = express.Router();
 
 // Página pública - listar colaborações
 router.get('/colaboracoes', ColaboracaoController.index);
@@ -10,4 +11,4 @@ router.get('/colaboracoes', ColaboracaoController.index);
 router.get('/colaborar', requireAuth, ColaboracaoController.showForm);
 router.post('/colaborar', requireAuth, ColaboracaoController.store);
 
-module.exports = router;
+export default router;

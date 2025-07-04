@@ -1,43 +1,69 @@
-# Multi-stage build para otimização
-FROM node:18-alpine AS base
+# 🍷 OuiWine - Multi-stage TypeScript Build
+FROM node:18-alpine AS builder
 
 # Instalar dependências do sistema para SQLite
-RUN apk add --no-cache sqlite
+RUN apk add --no-cache sqlite python3 make g++
 
 # Definir diretório de trabalho
 WORKDIR /app
 
-# Copiar arquivos de configuração primeiro (cache layer)
+# Copiar arquivos de configuração
 COPY package*.json ./
+COPY tsconfig.json ./
 
-# Instalar dependências
-RUN npm ci --only=production && npm cache clean --force
+# Instalar todas as dependências (incluindo devDependencies para build)
+RUN npm ci
+
+# Copiar código fonte TypeScript
+COPY src/ ./src/
+
+# Copiar configurações Sequelize necessárias para build
+COPY config/ ./config/
+COPY migrations/ ./migrations/
+COPY .sequelizerc ./
+
+# Build TypeScript → JavaScript
+RUN npm run build
+
+# Verificar se build foi criado
+RUN ls -la dist/
+
+# ===== STAGE PRODUCTION =====
+FROM node:18-alpine AS production
+
+# Instalar SQLite no stage final
+RUN apk add --no-cache sqlite
+
+WORKDIR /app
 
 # Criar usuário não-root para segurança
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S ouiwine -u 1001
 
-# STAGE FINAL
-FROM node:18-alpine AS production
+# Copiar package.json para instalar apenas dependencies
+COPY package*.json ./
 
-# Instalar SQLite e wget no stage final
-RUN apk add --no-cache sqlite wget
+# Instalar apenas dependencies de produção
+RUN npm ci --only=production && npm cache clean --force
 
-WORKDIR /app
+# Copiar código compilado do stage builder
+COPY --from=builder /app/dist ./dist
 
-# Criar usuário ANTES de usar no COPY
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S ouiwine -u 1001
+# Copiar arquivos necessários para runtime
+COPY views/ ./views/
+COPY public/ ./public/
 
-# Copiar node_modules do stage anterior
-COPY --from=base /app/node_modules ./node_modules
+# Copiar configurações Sequelize para runtime
+COPY config/ ./config/
+COPY migrations/ ./migrations/
+COPY .sequelizerc ./
+COPY controllers/ ./controllers/
 
-# Copiar código da aplicação
-COPY --chown=ouiwine:nodejs . .
+# Criar diretório para banco de dados SQLite
+RUN mkdir -p /app/data
 
-# Criar diretório para banco de dados e dar permissão total para /app
-RUN mkdir -p /app/data && \
-    chown -R ouiwine:nodejs /app && \
+# Dar permissões para usuário ouiwine
+RUN chown -R ouiwine:nodejs /app && \
     chmod -R 755 /app
 
 # Trocar para usuário não-root
@@ -46,5 +72,9 @@ USER ouiwine
 # Expor porta
 EXPOSE 3000
 
-# Comando para iniciar a aplicação
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
+
+# Comando para iniciar aplicação TypeScript compilada
 CMD ["npm", "start"]
