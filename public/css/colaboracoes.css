@@ -1,12 +1,29 @@
-/* public/css/colaboracoes.css */
-
+/* Navbar padrão OuiWine */
 .navbar {
   background-color: #170000 !important;
 }
 
+/* Layout */
+.main-content {
+    margin-top: 7rem;
+    margin-bottom: 3rem;
+}
+
 .footer {
   background-color: #170000;
-  padding: 3rem 0; /* Reduzido de 5rem */
+  padding: 3rem 0;
+}
+
+/* Page styling */
+.page-title {
+    color: #170000;
+    font-weight: bold;
+}
+
+.resultado-count {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
 }
 
 /* Cards de colaboração */
@@ -78,11 +95,12 @@
 
 /* Filtros */
 .filtros-container {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .colaboracoes-titulo {
@@ -96,6 +114,19 @@
   color: #6c757d;
   font-size: 1.1rem;
   margin-bottom: 2rem;
+}
+
+/* Estados vazios */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
 }
 
 /* Responsivo */
@@ -122,81 +153,4 @@
   .filtros-container {
     padding: 1rem;
   }
-}
-
-/* Estados vazios */
-.empty-state {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: #6c757d;
-}
-
-.empty-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-
-/* Loading states */
-.loading-card {
-  background: linear-gradient(90deg, #f0f0f0 25%, transparent 37%, #f0f0f0 63%);
-  background-size: 400% 100%;
-  animation: loading 1.4s ease infinite;
-}
-
-@keyframes loading {
-  0% { background-position: 100% 50%; }
-  100% { background-position: -100% 50%; }
-}
-
-/* Ajustes gerais de tamanho */
-body {
-  font-size: 0.95rem; /* Reduzido ligeiramente */
-}
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.3; /* Reduzido para economizar espaço */
-}
-
-.container {
-  max-width: 1200px; /* Limitar largura máxima */
-}
-
-/* Botões menores */
-.btn {
-  padding: 0.5rem 1rem; /* Reduzido */
-  font-size: 0.9rem;
-}
-
-.btn-lg {
-  padding: 0.7rem 1.5rem; /* Reduzido */
-  font-size: 1rem;
-}
-
-/* Cards mais compactos */
-.card {
-  margin-bottom: 1rem; /* Reduzido */
-}
-
-/* Paginação */
-.pagination .page-link {
-  padding: 0.5rem 0.75rem; /* Reduzido */
-  font-size: 0.9rem;
-}
-
-/* Formulários */
-.form-control, .form-select {
-  padding: 0.5rem 0.75rem; /* Reduzido */
-  font-size: 0.9rem;
-}
-
-.form-label {
-  font-size: 0.9rem;
-  margin-bottom: 0.3rem; /* Reduzido */
-}
-
-/* Alertas */
-.alert {
-  padding: 0.75rem 1rem; /* Reduzido */
-  font-size: 0.9rem;
 }

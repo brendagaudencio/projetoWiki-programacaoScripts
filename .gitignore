@@ -11,6 +11,10 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# Arquivos de ambiente específicos (não commitar)
+.env.development
+.env.production
+
 # Database
 database.sqlite
 *.db

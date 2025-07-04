@@ -1,10 +1,7 @@
-// controllers/ColaboracaoController.js - VERSÃO FINAL COM CPF OBRIGATÓRIO
-
-const { Colaboracao } = require('../models');
+const { Colaboracao, User } = require('../models');
 
 class ColaboracaoController {
     
-    // 📋 Mostrar formulário de colaboração (apenas para usuários logados)
     static async showForm(req, res) {
         try {
             res.render('colaborar', {
@@ -22,16 +19,12 @@ class ColaboracaoController {
         }
     }
 
-    // 📋 Listar colaborações aprovadas (página pública)
     static async index(req, res) {
         try {
-            // Parâmetros de filtro da query string
             const { busca, dataInicio, dataFim } = req.query;
-            
-            // Montar condições de busca
             const whereConditions = { status: 'aprovada' };
             
-            // Filtro por palavra-chave (nome ou mensagem)
+            // Filtro por palavra-chave
             if (busca && busca.trim()) {
                 const { Op } = require('sequelize');
                 whereConditions[Op.or] = [
@@ -68,7 +61,6 @@ class ColaboracaoController {
 
         } catch (error) {
             console.error('Erro ao carregar colaborações:', error.message);
-            
             res.status(500).render('error', {
                 title: 'Erro - OuiWine',
                 error: {
@@ -79,137 +71,102 @@ class ColaboracaoController {
         }
     }
 
-    // 💾 Salvar nova colaboração (apenas usuários logados)
     static async store(req, res) {
         try {
             const { nome, email, cpf, mensagem } = req.body;
             const userId = req.session.userId;
 
-            console.log('📝 Nova colaboração recebida:', { 
-                userId, 
-                nome: nome ? 'PRESENTE' : 'AUSENTE',
-                email: email ? 'PRESENTE' : 'AUSENTE',
-                cpf: cpf ? 'PRESENTE' : 'AUSENTE',
-                mensagem: mensagem ? `${mensagem.length} chars` : 'AUSENTE'
+            console.log('🔍 DEBUG - Dados recebidos:', {
+                nome: nome ? 'OK' : 'FALTANDO',
+                email: email ? 'OK' : 'FALTANDO',
+                cpf: cpf ? 'OK' : 'FALTANDO',
+                mensagem: mensagem ? `${mensagem.length} chars` : 'FALTANDO',
+                userId: userId || 'FALTANDO'
             });
 
-            // ✅ VALIDAÇÕES OBRIGATÓRIAS
-            
-            // 1. Validar presença dos campos
+            // Validações obrigatórias
             if (!nome || !email || !cpf || !mensagem) {
                 req.flash('error', 'Todos os campos são obrigatórios.');
                 return res.redirect('/colaborar');
             }
 
-            // 2. Validar CPF
+            // Validar CPF
             const cpfLimpo = cpf.replace(/[^\d]/g, '');
-            if (cpfLimpo.length !== 11) {
-                req.flash('error', 'CPF deve ter 11 dígitos.');
-                return res.redirect('/colaborar');
-            }
+            console.log('🔍 DEBUG - CPF limpo:', cpfLimpo);
 
-            if (!isValidCPF(cpfLimpo)) {
+            if (cpfLimpo.length !== 11 || !isValidCPF(cpfLimpo)) {
                 req.flash('error', 'CPF inválido. Verifique os números digitados.');
                 return res.redirect('/colaborar');
             }
 
-            // 3. Validar tamanho da mensagem (10-500 caracteres)
+            // Validar tamanho da mensagem
             const mensagemTrimmed = mensagem.trim();
-            if (mensagemTrimmed.length < 10) {
-                req.flash('error', 'A mensagem deve ter pelo menos 10 caracteres.');
+            if (mensagemTrimmed.length < 10 || mensagemTrimmed.length > 500) {
+                req.flash('error', 'A mensagem deve ter entre 10 e 500 caracteres.');
                 return res.redirect('/colaborar');
             }
 
-            if (mensagemTrimmed.length > 500) {
-                req.flash('error', 'A mensagem deve ter no máximo 500 caracteres.');
-                return res.redirect('/colaborar');
+            // Buscar usuário atual
+            const user = await User.findByPk(userId);
+            if (!user) {
+                req.flash('error', 'Usuário não encontrado. Faça login novamente.');
+                return res.redirect('/auth/login');
             }
 
-            // 4. Verificar se usuário já tem colaboração (opcional - evitar spam)
-            const colaboracaoExistente = await Colaboracao.findOne({
-                where: { 
-                    email: email.toLowerCase().trim(),
-                    status: 'aprovada'
+            console.log('🔍 DEBUG - Usuário encontrado:', user.nome);
+
+            // Salvar CPF no User se ele não tiver
+            if (!user.cpf) {
+                try {
+                    await user.update({ cpf: cpfLimpo });
+                    console.log('✅ CPF salvo no usuário:', cpfLimpo);
+                } catch (cpfError) {
+                    console.error('⚠️ Erro ao salvar CPF no usuário:', cpfError.message);
+                    // Continuar mesmo se não conseguir salvar CPF no User
                 }
-            });
-
-            if (colaboracaoExistente) {
-                req.flash('error', 'Você já possui uma colaboração aprovada. Entre em contato conosco para enviar uma nova história.');
-                return res.redirect('/colaboracoes');
+            } else {
+                console.log('ℹ️ Usuário já possui CPF:', user.cpf);
             }
 
-            // ✅ CRIAR COLABORAÇÃO
+            // ✅ CRIAR COLABORAÇÃO (SEM VERIFICAÇÃO DE CPF DUPLICADO)
+            // Agora permite múltiplas colaborações do mesmo usuário
             const novaColaboracao = await Colaboracao.create({
                 nome: nome.trim(),
                 email: email.toLowerCase().trim(),
                 cpf: cpfLimpo,
                 mensagem: mensagemTrimmed,
-                status: 'aprovada', // Auto-aprovar por enquanto
-                userId: userId // Associar ao usuário logado
+                status: 'aprovada',
+                userId: userId
             });
 
-            console.log(`✅ Colaboração criada com sucesso! ID: ${novaColaboracao.id}`);
+            console.log('✅ Colaboração criada com sucesso! ID:', novaColaboracao.id);
 
-            req.flash('success', `Obrigado, ${nome.split(' ')[0]}! Sua história foi compartilhada com sucesso. 🍷`);
+            req.flash('success', `Obrigado, ${nome.split(' ')[0]}! Sua história foi compartilhada com sucesso.`);
             res.redirect('/colaboracoes');
 
         } catch (error) {
-            console.error('❌ Erro ao salvar colaboração:', error.message);
+            console.error('❌ ERRO COMPLETO ao salvar colaboração:', error);
             
             if (error.name === 'SequelizeValidationError') {
-                const mensagem = error.errors.map(err => err.message).join(', ');
-                req.flash('error', mensagem);
-            } else if (error.name === 'SequelizeUniqueConstraintError') {
-                req.flash('error', 'Este CPF já foi utilizado em outra colaboração.');
+                const mensagem = error.errors.map(err => `${err.path}: ${err.message}`).join(', ');
+                req.flash('error', `Erro de validação: ${mensagem}`);
+            } else if (error.name === 'SequelizeForeignKeyConstraintError') {
+                req.flash('error', 'Erro de relacionamento no banco. Faça login novamente.');
             } else {
-                req.flash('error', 'Erro interno. Tente novamente em alguns minutos.');
+                req.flash('error', `Erro interno: ${error.message}`);
             }
             
             res.redirect('/colaborar');
         }
     }
-
-    // 🧪 Debug de colaborações (apenas para desenvolvimento)
-    static async debug(req, res) {
-        try {
-            const total = await Colaboracao.count();
-            const colaboracoes = await Colaboracao.findAll({
-                order: [['createdAt', 'DESC']],
-                limit: 10,
-                attributes: ['id', 'nome', 'email', 'cpf', 'status', 'createdAt', 'userId']
-            });
-
-            res.json({
-                message: 'Debug de colaborações',
-                total: total,
-                colaboracoes: colaboracoes.map(c => ({
-                    id: c.id,
-                    nome: c.nome,
-                    email: c.email,
-                    cpf: c.cpf ? '***.***.***-**' : null, // Mascarar CPF no debug
-                    status: c.status,
-                    userId: c.userId,
-                    mensagem: c.mensagem ? c.mensagem.substring(0, 50) + '...' : null,
-                    createdAt: c.createdAt
-                }))
-            });
-
-        } catch (error) {
-            res.status(500).json({ 
-                error: error.message
-            });
-        }
-    }
 }
 
-// ✅ FUNÇÃO DE VALIDAÇÃO DE CPF (backend)
+// Validação de CPF
 function isValidCPF(cpf) {
-    // Eliminar CPFs conhecidos como inválidos
     if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
         return false;
     }
 
-    // Validar primeiro dígito verificador
     let soma = 0;
     let resto;
 
@@ -221,7 +178,6 @@ function isValidCPF(cpf) {
     if (resto === 10 || resto === 11) resto = 0;
     if (resto !== parseInt(cpf.substring(9, 10))) return false;
 
-    // Validar segundo dígito verificador
     soma = 0;
     for (let i = 1; i <= 10; i++) {
         soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);

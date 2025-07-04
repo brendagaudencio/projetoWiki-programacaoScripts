@@ -23,9 +23,8 @@
     <main>
         <article>
             <div class="form-colaborar">
-                <!-- ✅ VERIFICAÇÃO DEFENSIVA: Se usuário não estiver logado -->
                 <% if (!locals.isLoggedIn || !locals.user) { %>
-                    <!-- Usuário NÃO logado - mostrar aviso -->
+                    <!-- Usuário não logado -->
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-6">
@@ -33,7 +32,7 @@
                                     <div class="mb-4">
                                         <i class="bi bi-person-lock" style="font-size: 4rem; color: #dc3545;"></i>
                                     </div>
-                                    <h2 class="text-dark fw-bold mb-3">🔐 Acesso Restrito</h2>
+                                    <h2 class="text-dark fw-bold mb-3">Acesso Restrito</h2>
                                     <p class="fs-5 text-muted mb-4">
                                         Para compartilhar sua experiência com vinhos, você precisa estar logado.
                                     </p>
@@ -56,7 +55,7 @@
                         </div>
                     </div>
                 <% } else { %>
-                    <!-- ✅ USUÁRIO LOGADO - Mostrar formulário -->
+                    <!-- Usuário logado - formulário -->
                     
                     <!-- Flash Messages -->
                     <% if (locals.messages && locals.messages.success && locals.messages.success.length > 0) { %>
@@ -76,7 +75,7 @@
                     <% } %>
 
                     <p class="text-center fs-4 text-dark fw-bold mt-5 mx-5 text-break">
-                        ✍️ Compartilhe sua experiência com vinhos
+                        Compartilhe sua experiência com vinhos
                     </p>
                     <p class="text-center fs-5 text-muted mb-4 text-break mx-5">
                         Olá, <strong><%= locals.user.nome.split(' ')[0] %></strong>! Conte sua melhor história sobre vinhos para nossa comunidade.
@@ -85,7 +84,7 @@
                     <form id="formGeral" method="POST" action="/colaborar" 
                           class="focus-ring focus-ring-dark mx-auto my-5 text-break p-4 bg-light col-lg-6 mb-5 rounded shadow needs-validation" novalidate>
                         
-                        <!-- Nome (pré-preenchido e readonly) -->
+                        <!-- Nome (pré-preenchido) -->
                         <div class="mb-3">
                             <label for="nome" class="form-label">
                                 <i class="bi bi-person-fill me-2"></i>Nome Completo
@@ -99,7 +98,7 @@
                             </div>
                         </div>
 
-                        <!-- Email (pré-preenchido e readonly) -->
+                        <!-- Email (pré-preenchido) -->
                         <div class="mb-3">
                             <label for="email" class="form-label">
                                 <i class="bi bi-envelope-fill me-2"></i>Email
@@ -109,24 +108,41 @@
                                    style="background-color: #f8f9fa; border: 2px solid #e9ecef;">
                         </div>
 
-                        <!-- CPF (obrigatório) -->
+                        <!-- ✅ CPF (PRÉ-PREENCHIDO MASCARADO SE EXISTIR) -->
                         <div class="mb-3">
                             <label for="cpf" class="form-label">
                                 <i class="bi bi-card-text me-2 text-danger"></i>CPF 
                                 <span class="text-danger">*</span>
+                                <% if (locals.user.cpf) { %>
+                                    <i class="bi bi-check-circle-fill text-success ms-2" title="CPF já cadastrado"></i>
+                                <% } %>
                             </label>
-                            <input type="text" class="form-control" id="cpf" name="cpf" 
-                                   placeholder="000.000.000-00" required maxlength="14">
-                            <div class="invalid-feedback">
-                                Por favor, informe um CPF válido.
-                            </div>
-                            <div class="form-text">
-                                <i class="bi bi-shield-check me-1"></i>
-                                Seus dados são protegidos e usados apenas para controle interno.
-                            </div>
+                            
+                            <% if (locals.user.cpf) { %>
+                                <!-- CPF já existe - mostrar mascarado + campo hidden -->
+                                <input type="text" class="form-control" 
+                                       value="***.***.***-<%= locals.user.cpf.slice(-2) %>" 
+                                       readonly style="background-color: #f8f9fa; border: 2px solid #e9ecef;">
+                                <input type="hidden" name="cpf" value="<%= locals.user.cpf %>">
+                                <div class="form-text">
+                                    <i class="bi bi-shield-check me-1 text-success"></i>
+                                    CPF já cadastrado no seu perfil (***.***.***-<%= locals.user.cpf.slice(-2) %>)
+                                </div>
+                            <% } else { %>
+                                <!-- CPF não existe - campo editável -->
+                                <input type="text" class="form-control" id="cpf" name="cpf" 
+                                       placeholder="000.000.000-00" required maxlength="14">
+                                <div class="invalid-feedback">
+                                    Por favor, informe um CPF válido.
+                                </div>
+                                <div class="form-text">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Será salvo no seu perfil para próximas colaborações
+                                </div>
+                            <% } %>
                         </div>
 
-                        <!-- Mensagem (obrigatório, 10-500 caracteres) -->
+                        <!-- Mensagem (obrigatório) -->
                         <div class="mb-4">
                             <label for="mensagem" class="form-label">
                                 <i class="bi bi-chat-text-fill me-2 text-danger"></i>Sua História com Vinhos 
@@ -175,7 +191,6 @@
         integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu"
         crossorigin="anonymous"></script>
     
-    <!-- ✅ CARREGAR JavaScript apenas se usuário estiver logado -->
     <% if (locals.isLoggedIn && locals.user) { %>
         <script src="/js/colaborar.js"></script>
     <% } %>
