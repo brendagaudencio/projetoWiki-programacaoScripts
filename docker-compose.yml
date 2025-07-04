@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  ouiwine:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: ouiwine-prod
+    ports:
+      - "80:3000"  # Porta 80 externa -> 3000 interna
+    env_file:
+      - .env.production
+    volumes:
+      # Apenas volume para dados persistentes
+      - ouiwine_data:/app/data
+      - ouiwine_db:/app
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    networks:
+      - ouiwine_network
+    # Configurações de segurança para produção
+    security_opt:
+      - no-new-privileges:true
+    read_only: false  # SQLite precisa escrever
+    tmpfs:
+      - /tmp
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  ouiwine_data:
+    driver: local
+  ouiwine_db:
+    driver: local
+
+networks:
+  ouiwine_network:
+    driver: bridge
