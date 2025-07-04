@@ -1,18 +1,31 @@
-'use strict';
-const { Model } = require('sequelize');
+import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { IColaboracao } from '../types/colaboracao.interface';
 
-module.exports = (sequelize, DataTypes) => {
-  class Colaboracao extends Model {
-    static associate(models) {
-      // Associação N:1 com User
-      Colaboracao.belongsTo(models.User, {
-        foreignKey: 'userId',
-        as: 'author',
-        onDelete: 'SET NULL'
-      });
-    }
+// Definir atributos opcionais para criação
+interface ColaboracaoCreationAttributes extends Optional<IColaboracao, 'id' | 'createdAt' | 'updatedAt' | 'status' | 'userId'> {}
+
+class Colaboracao extends Model<IColaboracao, ColaboracaoCreationAttributes> implements IColaboracao {
+  public id!: number;
+  public nome!: string;
+  public email!: string;
+  public cpf!: string;
+  public mensagem!: string;
+  public status!: 'pendente' | 'aprovada' | 'rejeitada';
+  public userId?: number;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+
+  // Método de associação
+  public static associate(models: any): void {
+    Colaboracao.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'author',
+      onDelete: 'SET NULL'
+    });
   }
+}
 
+export default (sequelize: Sequelize): typeof Colaboracao => {
   Colaboracao.init({
     id: {
       type: DataTypes.INTEGER,
@@ -86,6 +99,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
+    // ADICIONAR TIMESTAMPS
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -102,23 +116,15 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'colaboracoes',
     timestamps: true,
     indexes: [
-      {
-        fields: ['status']
-      },
-      {
-        fields: ['userId']
-      },
-      {
-        fields: ['createdAt']
-      },
-      {
-        fields: ['email']
-      },
-      {
-        fields: ['cpf']
-      }
+      { fields: ['status'] },
+      { fields: ['userId'] },
+      { fields: ['createdAt'] },
+      { fields: ['email'] },
+      { fields: ['cpf'] }
     ]
   });
 
   return Colaboracao;
 };
+
+export { Colaboracao };

@@ -1,20 +1,23 @@
-const express = require('express');
-const session = require('express-session');
-const flash = require('connect-flash');
-const path = require('path');
+import express, { Application, Request, Response, NextFunction } from 'express';
+import session from 'express-session';
+import flash from 'connect-flash';
+import path from 'path';
 
-const { sequelize, User } = require('./models');
-const homeRoutes = require('./routes/home');
-const authRoutes = require('./routes/auth');
-const colaboracaoRoutes = require('./routes/colaboracao');
+import db from './models';
+const { sequelize, User } = db;
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+// Import routes
+import homeRoutes from './routes/home';
+import authRoutes from './routes/auth';
+import colaboracaoRoutes from './routes/colaboracao';
+
+const app: Application = express();
+const PORT: number = parseInt(process.env.PORT || '3000');
 
 // Configurações básicas
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, '../views'));
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -33,14 +36,14 @@ app.use(session({
 app.use(flash());
 
 // Middleware global para dados do usuário
-app.use(async (req, res, next) => {
+app.use(async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.locals.messages = req.flash();
         res.locals.isLoggedIn = false;
         res.locals.user = null;
         
-        if (req.session?.userId) {
-            const user = await User.findByPk(req.session.userId, {
+        if (req.session && (req.session as any).userId) {
+            const user = await User.findByPk((req.session as any).userId, {
                 attributes: ['id', 'nome', 'email', 'cpf', 'ativo']
             });
             
@@ -54,12 +57,12 @@ app.use(async (req, res, next) => {
                     cpf: user.cpf
                 };
             } else {
-                req.session.destroy();
+                req.session.destroy(() => {});
             }
         }
         
     } catch (error) {
-        console.error('Erro no middleware global:', error.message);
+        console.error('Erro no middleware global:', (error as Error).message);
         res.locals.isLoggedIn = false;
         res.locals.user = null;
     }
@@ -68,7 +71,7 @@ app.use(async (req, res, next) => {
 });
 
 // Headers de segurança
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'DENY');
     res.setHeader('X-XSS-Protection', '1; mode=block');
@@ -81,7 +84,7 @@ app.use('/auth', authRoutes);
 app.use('/', colaboracaoRoutes);
 
 // Tratamento de erros 404
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
     res.status(404).render('error', {
         title: 'Página não encontrada - OuiWine',
         error: {
@@ -94,7 +97,7 @@ app.use((req, res) => {
 });
 
 // Tratamento de erros 500
-app.use((err, req, res, next) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error('Erro interno do servidor:', err.stack);
     
     const isProduction = process.env.NODE_ENV === 'production';
@@ -113,7 +116,7 @@ app.use((err, req, res, next) => {
 });
 
 // Inicialização do servidor
-async function startServer() {
+async function startServer(): Promise<void> {
     try {
         await sequelize.sync();
         console.log('Banco de dados sincronizado');
@@ -126,7 +129,7 @@ async function startServer() {
         });
 
     } catch (error) {
-        console.error('Erro ao iniciar servidor:', error.message);
+        console.error('Erro ao iniciar servidor:', (error as Error).message);
         process.exit(1);
     }
 }
@@ -139,7 +142,7 @@ process.on('SIGINT', async () => {
         await sequelize.close();
         console.log('Conexões do banco fechadas');
     } catch (error) {
-        console.error('Erro ao fechar banco:', error.message);
+        console.error('Erro ao fechar banco:', (error as Error).message);
     }
     
     process.exit(0);
